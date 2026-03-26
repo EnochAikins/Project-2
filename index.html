@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Africa Governance Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Interactive governance explorer</p>
+          <h1>Africa Governance Atlas, 1990 to 2025</h1>
+          <p class="hero-text">
+            Compare democratic quality, institutional capacity, corruption, and conflict indicators across African
+            countries with a choropleth map, year playback, and country-level trend view.
+          </p>
+        </div>
+        <div class="hero-stats">
+          <article class="stat-card">
+            <span class="stat-label">Countries</span>
+            <strong id="country-count">54</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Years</span>
+            <strong id="year-range-stat">1990-2025</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Indicators</span>
+            <strong id="indicator-count">7</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="controls-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Filter</p>
+            <h2>Choose an indicator and year</h2>
+          </div>
+          <div class="year-chip">
+            <span>Current year</span>
+            <strong id="active-year-label">1990</strong>
+          </div>
+        </div>
+
+        <div id="indicator-grid" class="indicator-grid" aria-label="Indicator selection"></div>
+
+        <div class="timeline-row">
+          <button id="play-button" class="play-button" type="button" aria-label="Play timeline">Play</button>
+          <div class="slider-wrap">
+            <label for="year-slider">Year</label>
+            <input id="year-slider" type="range" min="1990" max="2025" step="1" value="1990" />
+            <div class="slider-scale">
+              <span>1990</span>
+              <span>2025</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="insight-strip">
+        <article class="insight-card">
+          <span class="insight-label">African average</span>
+          <strong id="avg-score">--</strong>
+          <p id="avg-score-note">Waiting for indicator selection.</p>
+        </article>
+        <article class="insight-card">
+          <span class="insight-label">Highest score</span>
+          <strong id="top-country">--</strong>
+          <p id="top-country-note">--</p>
+        </article>
+        <article class="insight-card">
+          <span class="insight-label">Lowest score</span>
+          <strong id="low-country">--</strong>
+          <p id="low-country-note">--</p>
+        </article>
+        <article class="insight-card">
+          <span class="insight-label">Coverage</span>
+          <strong id="coverage-count">--</strong>
+          <p id="coverage-note">Countries with available data in the selected year.</p>
+        </article>
+      </section>
+
+      <section class="viz-grid">
+        <article class="panel map-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Map</p>
+              <h2 id="map-title">Governance by country</h2>
+            </div>
+            <p class="panel-note">Click a country to inspect its full time series.</p>
+          </div>
+          <div id="map" class="plot"></div>
+        </article>
+
+        <article class="panel detail-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Country detail</p>
+              <h2 id="detail-title">Select a country</h2>
+            </div>
+            <p class="panel-note" id="detail-note">The profile and line chart update when you click a country on the map.</p>
+          </div>
+          <div id="country-profile" class="country-profile"></div>
+          <div id="country-chart" class="plot detail-plot"></div>
+          <div id="country-summary" class="country-summary"></div>
+        </article>
+      </section>
+
+      <section class="profile-dashboard panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">Country Profile Dashboard</p>
+            <h2>Latest available governance snapshot by country</h2>
+          </div>
+          <p class="panel-note">Choose a country to compare its most recent score across all governance indicators.</p>
+        </div>
+
+        <div class="country-filter-row">
+          <label class="country-filter-label" for="country-profile-select">Country</label>
+          <select id="country-profile-select" class="country-filter-select"></select>
+        </div>
+
+        <div class="country-profile-grid">
+          <article class="country-profile-panel">
+            <div class="country-profile-header">
+              <div>
+                <p class="panel-kicker">Selected country</p>
+                <h3 id="latest-profile-title">Country profile</h3>
+              </div>
+              <p id="latest-profile-note" class="panel-note">Latest non-missing score for each indicator.</p>
+            </div>
+            <div id="latest-profile-chart" class="plot latest-profile-plot"></div>
+          </article>
+
+          <article class="country-profile-panel">
+            <div class="country-profile-header">
+              <div>
+                <p class="panel-kicker">Indicator cards</p>
+                <h3>Latest score table</h3>
+              </div>
+              <p class="panel-note">Each card shows the latest reported value and the year it comes from.</p>
+            </div>
+            <div id="latest-profile-cards" class="latest-profile-cards"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="afro-dashboard panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">Afrobarometer Dashboard</p>
+            <h2>Country performance linked to citizen survey responses</h2>
+          </div>
+          <p class="panel-note">Filter by country, then click an indicator link to see the linked Afrobarometer responses.</p>
+        </div>
+
+        <div class="country-filter-row">
+          <label class="country-filter-label" for="afro-country-select">Country</label>
+          <select id="afro-country-select" class="country-filter-select"></select>
+        </div>
+
+        <div class="afro-dashboard-grid">
+          <article class="country-profile-panel">
+            <div class="country-profile-header">
+              <div>
+                <p class="panel-kicker">Indicator links</p>
+                <h3 id="afro-title">Afrobarometer-linked indicators</h3>
+              </div>
+              <p id="afro-note" class="panel-note">Hover or click an indicator card to update the response chart.</p>
+            </div>
+            <div id="afro-card-grid" class="afro-card-grid"></div>
+          </article>
+
+          <article class="country-profile-panel">
+            <div class="country-profile-header">
+              <div>
+                <p class="panel-kicker">Survey responses</p>
+                <h3 id="afro-response-title">Response distribution</h3>
+              </div>
+              <p id="afro-response-note" class="panel-note">Afrobarometer responses for the selected indicator-country link.</p>
+            </div>
+            <div id="afro-response-chart" class="plot afro-response-plot"></div>
+            <div id="afro-response-meta" class="afro-response-meta"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./data/governance-data.js"></script>
+    <script src="./data/afrobarometer-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
