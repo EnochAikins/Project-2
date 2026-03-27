@@ -1,31 +1,47 @@
 const indicatorMeta = [
   {
-    key: "Score_GOV_IIAG",
-    label: "IIAG",
-    title: "Ibrahim Index of African Governance",
-    description: "Broad governance performance across Africa.",
-    scaleHint: "Higher scores suggest stronger governance.",
+    key: "Score_GOV_VDem_LibDem",
+    label: "V-Dem Liberal",
+    title: "V-Dem Liberal Democracy",
+    description: "Liberal democracy performance.",
+    scaleHint: "Higher scores suggest stronger liberal democracy.",
+    iconSrc: "https://v-dem.net/static/website/img/logo.3a331ab52b88.svg",
+    iconAlt: "V-Dem logo",
+    firstYear: 1990,
+    direction: "Higher is better",
   },
   {
     key: "Score_GOV_EIU_Democracy",
     label: "EIU Democracy",
     title: "Economist Intelligence Unit Democracy Index",
-    description: "Electoral process, civil liberties, and political culture.",
+    description: "Democratic quality and pluralism.",
     scaleHint: "Higher scores suggest more democratic quality.",
+    iconSrc: "https://www.eiu.com/n/wp-content/themes/eiu/dist/images/Economist_Intelligence_EIU_horizontal.svg",
+    iconAlt: "Economist Intelligence Unit logo",
+    firstYear: 2006,
+    direction: "Higher is better",
   },
   {
-    key: "Score_GOV_VDem_LibDem",
-    label: "V-Dem Liberal",
-    title: "V-Dem Liberal Democracy",
-    description: "Liberal democracy performance from the V-Dem project.",
-    scaleHint: "Higher scores suggest stronger liberal democracy.",
+    key: "Score_GOV_IIAG",
+    label: "IIAG",
+    title: "Ibrahim Index of African Governance",
+    description: "Broad governance performance.",
+    scaleHint: "Higher scores suggest stronger governance.",
+    iconSrc: "https://mo.ibrahim.foundation/themes/custom/mif2/assets/img/MIF-logo.svg",
+    iconAlt: "Mo Ibrahim Foundation logo",
+    firstYear: 2000,
+    direction: "Higher is better",
   },
   {
     key: "Score_GOV_WGI_GovEffect",
     label: "WGI Effectiveness",
     title: "World Governance Indicators Government Effectiveness",
-    description: "State capacity and public service effectiveness.",
+    description: "State capacity and service delivery.",
     scaleHint: "Higher scores suggest stronger institutions.",
+    iconSrc: "https://www.worldbank.org/content/dam/wbr-redesign/logos/wbg-favicon.png",
+    iconAlt: "World Bank logo",
+    firstYear: 1996,
+    direction: "Higher is better",
   },
   {
     key: "Score_CPI_Scores_Long",
@@ -33,20 +49,32 @@ const indicatorMeta = [
     title: "Corruption Perceptions Index",
     description: "Perceived public-sector corruption.",
     scaleHint: "Higher scores generally indicate lower corruption.",
+    iconSrc: "https://www.transparency.org/assets/meta/favicon-32x32.png",
+    iconAlt: "Transparency International logo",
+    firstYear: 1995,
+    direction: "Higher is better",
   },
   {
     key: "Score_GOV_ACLED_Conflict",
     label: "ACLED Conflict",
     title: "ACLED Conflict Intensity",
-    description: "Conflict exposure captured through ACLED.",
+    description: "Conflict intensity and exposure.",
     scaleHint: "Read relative differences carefully across countries.",
+    iconSrc: "https://acleddata.com/themes/custom/acled/assets/favicon/favicon-32x32.png",
+    iconAlt: "ACLED logo",
+    firstYear: 1997,
+    direction: "Higher is worse",
   },
   {
     key: "Score_GOV_UCDP_Conflict",
     label: "UCDP Conflict",
     title: "UCDP Conflict Intensity",
-    description: "Conflict intensity from the UCDP series.",
+    description: "Conflict intensity from UCDP.",
     scaleHint: "Read relative differences carefully across countries.",
+    iconSrc: "https://ucdp.uu.se/favicon.ico",
+    iconAlt: "UCDP logo",
+    firstYear: 1990,
+    direction: "Higher is worse",
   },
 ];
 
@@ -112,6 +140,63 @@ const countryAliases = {
   "Congo, Rep.": "Republic of the Congo",
   "Congo, Dem. Rep.": "Democratic Republic of the Congo",
   "Democratic Republic of the Congo": "Democratic Republic of the Congo",
+};
+
+const regionByCountry = {
+  Algeria: "North Africa",
+  Angola: "Southern Africa",
+  Benin: "West Africa",
+  Botswana: "Southern Africa",
+  "Burkina Faso": "West Africa",
+  Burundi: "East Africa",
+  "Cabo Verde": "West Africa",
+  Cameroon: "Central Africa",
+  "Central African Republic": "Central Africa",
+  Chad: "Central Africa",
+  Comoros: "East Africa",
+  "Republic of the Congo": "Central Africa",
+  "Democratic Republic of the Congo": "Central Africa",
+  "Cote d'Ivoire": "West Africa",
+  Djibouti: "East Africa",
+  Egypt: "North Africa",
+  "Equatorial Guinea": "Central Africa",
+  Eritrea: "East Africa",
+  Eswatini: "Southern Africa",
+  Ethiopia: "East Africa",
+  Gabon: "Central Africa",
+  Gambia: "West Africa",
+  Ghana: "West Africa",
+  Guinea: "West Africa",
+  "Guinea-Bissau": "West Africa",
+  Kenya: "East Africa",
+  Lesotho: "Southern Africa",
+  Liberia: "West Africa",
+  Libya: "North Africa",
+  Madagascar: "Southern Africa",
+  Malawi: "Southern Africa",
+  Mali: "West Africa",
+  Mauritania: "West Africa",
+  Mauritius: "Southern Africa",
+  Morocco: "North Africa",
+  Mozambique: "Southern Africa",
+  Namibia: "Southern Africa",
+  Niger: "West Africa",
+  Nigeria: "West Africa",
+  Rwanda: "East Africa",
+  "Sao Tome and Principe": "Central Africa",
+  Senegal: "West Africa",
+  Seychelles: "East Africa",
+  "Sierra Leone": "West Africa",
+  Somalia: "East Africa",
+  "South Africa": "Southern Africa",
+  "South Sudan": "East Africa",
+  Sudan: "North Africa",
+  Tanzania: "East Africa",
+  Togo: "West Africa",
+  Tunisia: "North Africa",
+  Uganda: "East Africa",
+  Zambia: "Southern Africa",
+  Zimbabwe: "Southern Africa",
 };
 
 const independenceByCountry = {
@@ -229,12 +314,16 @@ const recentNationalElectionByCountry = {
 };
 
 const state = {
+  activeTab: "africa",
   selectedIndicator: indicatorMeta[0].key,
   selectedYear: 1990,
   selectedCountry: null,
   selectedProfileCountry: null,
+  compareMode: "africa",
+  compareCountry: null,
   selectedAfroCountry: null,
   selectedAfroIndicator: "Score_CPI_Scores_Long",
+  showRollingAverage: false,
   playing: false,
   playbackHandle: null,
   mapBound: false,
@@ -306,6 +395,34 @@ const afrobarometerIndicatorMap = {
   },
 };
 
+const afrobarometerCardDefinitions = [
+  {
+    key: "Score_CPI_Scores_Long",
+    indicatorKeys: ["Score_CPI_Scores_Long"],
+    label: "Corruption",
+  },
+  {
+    key: "democracy_combined",
+    indicatorKeys: ["Score_GOV_EIU_Democracy", "Score_GOV_VDem_LibDem"],
+    label: "EIU / V-Dem democracy",
+  },
+  {
+    key: "Score_GOV_IIAG",
+    indicatorKeys: ["Score_GOV_IIAG"],
+    label: "IIAG governance",
+  },
+  {
+    key: "conflict_combined",
+    indicatorKeys: ["Score_GOV_ACLED_Conflict", "Score_GOV_UCDP_Conflict"],
+    label: "ACLED / UCDP conflict",
+  },
+  {
+    key: "Score_GOV_WGI_GovEffect",
+    indicatorKeys: ["Score_GOV_WGI_GovEffect"],
+    label: "Government effectiveness",
+  },
+];
+
 const responseOrderByMetric = {
   corruption: ["Increased a lot", "Increased somewhat", "Stayed the same", "Decreased somewhat", "Decreased a lot"],
   extent_democracy: ["Not a democracy", "A democracy; with major problems", "A democracy; but with minor problems", "A full democracy"],
@@ -319,8 +436,99 @@ const responseOrderByMetric = {
   trust_courts: ["Not at all", "Just a little", "Somewhat", "A lot"],
 };
 
+const afroQuestionTextConfig = {
+  extent_democracy: {
+    responseLabels: {
+      "Not a democracy": "Not a democracy",
+      "A democracy; with major problems": "Democracy with major problems",
+      "A democracy; but with minor problems": "Democracy with minor problems",
+      "A full democracy": "Full democracy",
+    },
+  },
+  satisfaction_democracy: {
+    responseLabels: {
+      "The country is not a democracy": "Not a democracy",
+      "Not at all satisfied": "Not at all satisfied",
+      "Not very satisfied": "Not very satisfied",
+      "Fairly satisfied": "Fairly satisfied",
+      "Very satisfied": "Very satisfied",
+    },
+  },
+};
+
+const surveyYearLabel = "Afrobarometer Round 10 (2024/2025)";
+
+const responseScaleByMetric = {
+  corruption: [
+    { label: "Increased a lot", side: "negative", color: "#8f3b18" },
+    { label: "Increased somewhat", side: "negative", color: "#c45c26" },
+    { label: "Stayed the same", side: "neutral", color: "#d6b36e" },
+    { label: "Decreased somewhat", side: "positive", color: "#7b9441" },
+    { label: "Decreased a lot", side: "positive", color: "#416a39" },
+  ],
+  extent_democracy: [
+    { label: "Not a democracy", side: "negative", color: "#8f3b18" },
+    { label: "A democracy; with major problems", side: "negative", color: "#c45c26" },
+    { label: "A democracy; but with minor problems", side: "positive", color: "#7b9441" },
+    { label: "A full democracy", side: "positive", color: "#416a39" },
+  ],
+  satisfaction_democracy: [
+    { label: "The country is not a democracy", side: "negative", color: "#8f3b18" },
+    { label: "Not at all satisfied", side: "negative", color: "#a84a20" },
+    { label: "Not very satisfied", side: "negative", color: "#c45c26" },
+    { label: "Fairly satisfied", side: "positive", color: "#7b9441" },
+    { label: "Very satisfied", side: "positive", color: "#416a39" },
+  ],
+  direction_country: [
+    { label: "Going in the wrong direction", side: "negative", color: "#8f3b18" },
+    { label: "Going in the right direction", side: "positive", color: "#416a39" },
+  ],
+  conflict_handling: [
+    { label: "Very badly", side: "negative", color: "#8f3b18" },
+    { label: "Fairly badly", side: "negative", color: "#c45c26" },
+    { label: "Fairly well", side: "positive", color: "#7b9441" },
+    { label: "Very well", side: "positive", color: "#416a39" },
+  ],
+  trust_president: [
+    { label: "Not at all", side: "negative", color: "#8f3b18" },
+    { label: "Just a little", side: "negative", color: "#c45c26" },
+    { label: "Somewhat", side: "positive", color: "#7b9441" },
+    { label: "A lot", side: "positive", color: "#416a39" },
+  ],
+  trust_police: [
+    { label: "Not at all", side: "negative", color: "#8f3b18" },
+    { label: "Just a little", side: "negative", color: "#c45c26" },
+    { label: "Somewhat", side: "positive", color: "#7b9441" },
+    { label: "A lot", side: "positive", color: "#416a39" },
+  ],
+  trust_parliament: [
+    { label: "Not at all", side: "negative", color: "#8f3b18" },
+    { label: "Just a little", side: "negative", color: "#c45c26" },
+    { label: "Somewhat", side: "positive", color: "#7b9441" },
+    { label: "A lot", side: "positive", color: "#416a39" },
+  ],
+  trust_army: [
+    { label: "Not at all", side: "negative", color: "#8f3b18" },
+    { label: "Just a little", side: "negative", color: "#c45c26" },
+    { label: "Somewhat", side: "positive", color: "#7b9441" },
+    { label: "A lot", side: "positive", color: "#416a39" },
+  ],
+  trust_courts: [
+    { label: "Not at all", side: "negative", color: "#8f3b18" },
+    { label: "Just a little", side: "negative", color: "#c45c26" },
+    { label: "Somewhat", side: "positive", color: "#7b9441" },
+    { label: "A lot", side: "positive", color: "#416a39" },
+  ],
+};
+
 const elements = {
+  tabButtons: Array.from(document.querySelectorAll("[data-tab]")),
+  tabPanels: Array.from(document.querySelectorAll("[data-tab-panel]")),
   indicatorGrid: document.getElementById("indicator-grid"),
+  indicatorMeta: document.getElementById("indicator-meta"),
+  indicatorEmptyState: document.getElementById("indicator-empty-state"),
+  indicatorEmptyText: document.getElementById("indicator-empty-text"),
+  jumpFirstYearButton: document.getElementById("jump-first-year-button"),
   yearSlider: document.getElementById("year-slider"),
   activeYearLabel: document.getElementById("active-year-label"),
   playButton: document.getElementById("play-button"),
@@ -329,6 +537,9 @@ const elements = {
   detailNote: document.getElementById("detail-note"),
   countrySummary: document.getElementById("country-summary"),
   countryProfile: document.getElementById("country-profile"),
+  chartControls: document.getElementById("chart-controls"),
+  rollingAverageToggle: document.getElementById("rolling-average-toggle"),
+  chartChangeSummary: document.getElementById("chart-change-summary"),
   avgScore: document.getElementById("avg-score"),
   avgScoreNote: document.getElementById("avg-score-note"),
   topCountry: document.getElementById("top-country"),
@@ -341,6 +552,9 @@ const elements = {
   yearRangeStat: document.getElementById("year-range-stat"),
   indicatorCount: document.getElementById("indicator-count"),
   countryProfileSelect: document.getElementById("country-profile-select"),
+  compareModeButtons: Array.from(document.querySelectorAll("[data-compare-mode]")),
+  compareCountryWrap: document.getElementById("compare-country-wrap"),
+  compareCountrySelect: document.getElementById("compare-country-select"),
   latestProfileTitle: document.getElementById("latest-profile-title"),
   latestProfileNote: document.getElementById("latest-profile-note"),
   latestProfileCards: document.getElementById("latest-profile-cards"),
@@ -350,6 +564,8 @@ const elements = {
   afroNote: document.getElementById("afro-note"),
   afroResponseTitle: document.getElementById("afro-response-title"),
   afroResponseNote: document.getElementById("afro-response-note"),
+  afroSurveySummary: document.getElementById("afro-survey-summary"),
+  afroResponseLegend: document.getElementById("afro-response-legend"),
   afroResponseMeta: document.getElementById("afro-response-meta"),
 };
 
@@ -392,6 +608,20 @@ function buildDataset(rawRows) {
 }
 
 const dataset = buildDataset(window.GOVERNANCE_DATA || []);
+const indicatorAvailabilityByKey = indicatorMeta.reduce((acc, indicator) => {
+  const availableYears = dataset.rows
+    .filter((row) => row[indicator.key] !== null)
+    .map((row) => row.Year);
+  const uniqueYears = [...new Set(availableYears)].sort((a, b) => a - b);
+  acc[indicator.key] = {
+    firstAvailableYear: uniqueYears[0] ?? null,
+    lastAvailableYear: uniqueYears[uniqueYears.length - 1] ?? null,
+    years: uniqueYears,
+  };
+  indicator.firstAvailableYear = uniqueYears[0] ?? null;
+  indicator.lastAvailableYear = uniqueYears[uniqueYears.length - 1] ?? null;
+  return acc;
+}, {});
 const rowsByCountry = dataset.rows.reduce((acc, row) => {
   if (!acc[row.Country]) {
     acc[row.Country] = [];
@@ -403,6 +633,7 @@ const rowsByCountry = dataset.rows.reduce((acc, row) => {
 
 state.selectedCountry = dataset.countries.includes("Ghana") ? "Ghana" : dataset.countries[0];
 state.selectedProfileCountry = state.selectedCountry;
+state.compareCountry = dataset.countries.find((country) => country !== state.selectedCountry) || dataset.countries[0];
 state.selectedAfroCountry = state.selectedCountry;
 state.selectedYear = dataset.years[0];
 
@@ -414,6 +645,10 @@ function formatValue(value) {
   return value === null ? "No data" : value.toFixed(2);
 }
 
+function formatChartValue(value) {
+  return value === null || value === undefined ? "No data" : value.toFixed(2);
+}
+
 function average(values) {
   if (!values.length) {
     return null;
@@ -421,8 +656,190 @@ function average(values) {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+function getCountryRowForYear(country, year) {
+  return (rowsByCountry[country] || []).find((row) => row.Year === year) || null;
+}
+
+function getCountriesInRegion(country) {
+  const region = regionByCountry[country];
+  if (!region) {
+    return [];
+  }
+  return dataset.countries.filter((item) => regionByCountry[item] === region);
+}
+
+function getCompareLabel(baseCountry = state.selectedProfileCountry) {
+  if (state.compareMode === "region") {
+    const region = regionByCountry[baseCountry] || "Region";
+    return `${region} average`;
+  }
+  if (state.compareMode === "country") {
+    return state.compareCountry || "Comparison country";
+  }
+  return "Africa average";
+}
+
+function getComparisonValue(mode, baseCountry, indicatorKey, year, compareCountry = state.compareCountry) {
+  if (!year) {
+    return null;
+  }
+
+  if (mode === "country") {
+    if (!compareCountry || compareCountry === baseCountry) {
+      return null;
+    }
+    const row = getCountryRowForYear(compareCountry, year);
+    return row ? row[indicatorKey] : null;
+  }
+
+  const peerCountries = mode === "region" ? getCountriesInRegion(baseCountry) : dataset.countries;
+  const values = peerCountries
+    .map((country) => getCountryRowForYear(country, year))
+    .map((row) => (row ? row[indicatorKey] : null))
+    .filter((value) => value !== null);
+
+  return average(values);
+}
+
+function buildComparisonSeries(baseCountry, indicatorKey) {
+  const rows = rowsByCountry[baseCountry] || [];
+  return rows.map((row) => ({
+    year: row.Year,
+    value: getComparisonValue(state.compareMode, baseCountry, indicatorKey, row.Year),
+  }));
+}
+
+function getLatestAvailableRow(country, indicatorKey) {
+  const rows = rowsByCountry[country] || [];
+  return [...rows].reverse().find((row) => row[indicatorKey] !== null) || null;
+}
+
+function isNoisyIndicator(indicatorKey) {
+  return indicatorKey === "Score_GOV_ACLED_Conflict" || indicatorKey === "Score_GOV_UCDP_Conflict";
+}
+
+function rollingAverage(values, windowSize = 5) {
+  return values.map((row, index) => {
+    const windowRows = values.slice(Math.max(0, index - windowSize + 1), index + 1).filter((item) => item.value !== null);
+    if (!windowRows.length) {
+      return { ...row, rolling: null };
+    }
+    const avg = windowRows.reduce((sum, item) => sum + item.value, 0) / windowRows.length;
+    return { ...row, rolling: avg };
+  });
+}
+
+function formatDelta(delta) {
+  if (delta === null || delta === undefined) {
+    return "No data";
+  }
+  const prefix = delta > 0 ? "+" : "";
+  return `${prefix}${delta.toFixed(2)}`;
+}
+
+function syncSharedCountry(country) {
+  state.selectedCountry = country;
+  state.selectedProfileCountry = country;
+  state.selectedAfroCountry = country;
+
+  if (elements.countryProfileSelect) {
+    elements.countryProfileSelect.value = country;
+  }
+  if (elements.afroCountrySelect) {
+    elements.afroCountrySelect.value = country;
+  }
+}
+
+function renderTabs() {
+  elements.tabButtons.forEach((button) => {
+    const active = button.dataset.tab === state.activeTab;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+
+  elements.tabPanels.forEach((panel) => {
+    const active = panel.dataset.tabPanel === state.activeTab;
+    panel.classList.toggle("active", active);
+    panel.hidden = !active;
+  });
+}
+
+function navigateToTab(tabKey) {
+  state.activeTab = tabKey;
+  renderTabs();
+
+  const panel = elements.tabPanels.find((item) => item.dataset.tabPanel === tabKey);
+  if (!panel) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    panel.focus({ preventScroll: true });
+  });
+}
+
+function buildCountryNarrative(country, indicatorKey) {
+  const indicator = indicatorMeta.find((item) => item.key === indicatorKey);
+  const rows = rowsByCountry[country] || [];
+  const validRows = rows.filter((row) => row[indicatorKey] !== null);
+
+  if (!validRows.length) {
+    return `${country} has no recorded ${indicator.label} values in this dataset yet, so the story panel is waiting for the first available observation.`;
+  }
+
+  const first = validRows[0];
+  const latest = validRows[validRows.length - 1];
+  const change = latest[indicatorKey] - first[indicatorKey];
+  const directionText =
+    Math.abs(change) < 0.01
+      ? "has stayed broadly stable"
+      : change > 0
+        ? "has improved overall"
+        : "has weakened overall";
+
+  const contextText =
+    indicator.direction === "Higher is worse"
+      ? "Higher values indicate greater intensity or exposure."
+      : "Higher values indicate stronger performance.";
+
+  return `${country} ${directionText} on ${indicator.label} from ${first.Year} to ${latest.Year}, moving from ${first[indicatorKey].toFixed(2)} to ${latest[indicatorKey].toFixed(2)}. ${contextText}`;
+}
+
+function getIndicatorAvailability(indicatorKey = state.selectedIndicator) {
+  return indicatorAvailabilityByKey[indicatorKey] || {
+    firstAvailableYear: null,
+    lastAvailableYear: null,
+    years: [],
+  };
+}
+
+function yearHasDataForIndicator(year, indicatorKey = state.selectedIndicator) {
+  return dataset.rows.some((row) => row.Year === year && row[indicatorKey] !== null);
+}
+
+function syncYearForIndicator(indicatorKey = state.selectedIndicator) {
+  const availability = getIndicatorAvailability(indicatorKey);
+  if (!availability.firstAvailableYear) {
+    return;
+  }
+  if (!yearHasDataForIndicator(state.selectedYear, indicatorKey)) {
+    state.selectedYear = availability.firstAvailableYear;
+  }
+}
+
 function getAfroMetric(country, metricKey) {
   return afrobarometerData[country]?.[metricKey] || null;
+}
+
+function normalizeAfroIndicatorKey(key) {
+  if (key === "Score_GOV_EIU_Democracy" || key === "Score_GOV_VDem_LibDem") {
+    return "democracy_combined";
+  }
+  if (key === "Score_GOV_ACLED_Conflict" || key === "Score_GOV_UCDP_Conflict") {
+    return "conflict_combined";
+  }
+  return key;
 }
 
 function getLatestIndicatorProfile(country) {
@@ -455,26 +872,31 @@ function getLatestIndicatorProfile(country) {
       description: indicator.description,
       value: latestRow ? latestRow[indicator.key] : null,
       year: latestRow ? latestRow.Year : null,
+      compareLabel: getCompareLabel(country),
+      compareValue: latestRow ? getComparisonValue(state.compareMode, country, indicator.key, latestRow.Year) : null,
       comparison,
     };
   });
 }
 
 function getAfroLinkedIndicators(country) {
-  return indicatorMeta.map((indicator) => {
-    const link = afrobarometerIndicatorMap[indicator.key];
-    const metrics = link.metrics.map((metric) => ({
+  return afrobarometerCardDefinitions.map((card) => {
+    const baseLink = afrobarometerIndicatorMap[card.indicatorKeys[0]];
+    const metrics = baseLink.metrics.map((metric) => ({
       ...metric,
       data: getAfroMetric(country, metric.key),
     }));
+    const covered = metrics.some((metric) => metric.data?.coverage === "covered");
 
     return {
-      ...indicator,
-      linkTitle: link.title,
-      linkDescription: link.description,
-      linkType: link.type,
+      key: card.key,
+      label: card.label,
+      linkTitle: baseLink.title,
+      linkDescription: baseLink.description,
+      linkType: baseLink.type,
       metrics,
-      covered: metrics.some((metric) => metric.data?.coverage === "covered"),
+      covered,
+      indicatorKeys: card.indicatorKeys,
     };
   });
 }
@@ -522,14 +944,51 @@ function renderIndicatorButtons() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `indicator-button${state.selectedIndicator === indicator.key ? " active" : ""}`;
-    button.innerHTML = `<strong>${indicator.label}</strong><span>${indicator.description}</span>`;
+    button.setAttribute("aria-pressed", state.selectedIndicator === indicator.key ? "true" : "false");
+    button.setAttribute("aria-label", `${indicator.title}. ${indicator.description}`);
+    button.innerHTML = `
+      <div class="indicator-button-head">
+        <span class="indicator-icon">
+          <img src="${indicator.iconSrc}" alt="${indicator.iconAlt}" class="indicator-icon-image" loading="lazy" />
+        </span>
+        <strong>${indicator.label}</strong>
+      </div>
+      <span>${indicator.description}</span>
+    `;
     button.addEventListener("click", () => {
       state.selectedIndicator = indicator.key;
+      syncYearForIndicator(indicator.key);
       renderIndicatorButtons();
       renderAll();
     });
     elements.indicatorGrid.appendChild(button);
   });
+
+  renderSelectedIndicatorMeta();
+}
+
+function renderSelectedIndicatorMeta() {
+  const indicator = getIndicator();
+  elements.indicatorMeta.innerHTML = `
+    <div class="indicator-meta-grid">
+      <article class="indicator-meta-item">
+        <p>Scale</p>
+        <strong>${indicator.scaleHint}</strong>
+      </article>
+      <article class="indicator-meta-item">
+        <p>First available year</p>
+        <strong>${indicator.firstAvailableYear ?? "Not available"}</strong>
+      </article>
+      <article class="indicator-meta-item">
+        <p>Last available year</p>
+        <strong>${indicator.lastAvailableYear ?? "Not available"}</strong>
+      </article>
+      <article class="indicator-meta-item">
+        <p>Direction</p>
+        <strong>${indicator.direction}</strong>
+      </article>
+    </div>
+  `;
 }
 
 function getYearRows() {
@@ -546,13 +1005,46 @@ function buildMapData() {
       iso3: isoByCountry[row.Country],
       value: row[indicator.key],
     }));
+  const averageValue = average(validRows.map((row) => row.value));
+  const rankedRows = [...validRows].sort((a, b) => b.value - a.value);
+  const rankByCountry = rankedRows.reduce((acc, row, index) => {
+    acc[row.country] = index + 1;
+    return acc;
+  }, {});
+  const missingRows = dataset.countries
+    .filter((country) => !validRows.some((row) => row.country === country))
+    .map((country) => {
+      const latestRow = getLatestAvailableRow(country, indicator.key);
+      return {
+        country,
+        iso3: isoByCountry[country],
+        latestAvailableYear: latestRow ? latestRow.Year : null,
+      };
+    });
 
   return {
     validRows,
+    missingRows,
     values: validRows.map((row) => row.value),
     topRow: validRows.reduce((best, row) => (!best || row.value > best.value ? row : best), null),
     lowRow: validRows.reduce((best, row) => (!best || row.value < best.value ? row : best), null),
+    averageValue,
+    rankByCountry,
   };
+}
+
+function renderIndicatorEmptyState() {
+  const indicator = getIndicator();
+  const availability = getIndicatorAvailability();
+  const hasData = yearHasDataForIndicator(state.selectedYear, indicator.key);
+
+  if (hasData || !availability.firstAvailableYear) {
+    elements.indicatorEmptyState.hidden = true;
+    return;
+  }
+
+  elements.indicatorEmptyState.hidden = false;
+  elements.indicatorEmptyText.textContent = `No ${indicator.label} data is available in ${state.selectedYear}.`;
 }
 
 function renderStats() {
@@ -561,7 +1053,7 @@ function renderStats() {
   const avg = average(values);
 
   elements.avgScore.textContent = avg === null ? "--" : avg.toFixed(2);
-  elements.avgScoreNote.textContent = indicator.scaleHint;
+  elements.avgScoreNote.textContent = avg === null ? `No ${indicator.label} values are available in ${state.selectedYear}.` : indicator.scaleHint;
   elements.topCountry.textContent = topRow ? topRow.country : "--";
   elements.topCountryNote.textContent = topRow ? `${topRow.value.toFixed(2)} in ${state.selectedYear}` : "No reported values";
   elements.lowCountry.textContent = lowRow ? lowRow.country : "--";
@@ -629,6 +1121,8 @@ function renderCountryProfileCard(country, profile) {
   const leaderName = profile.headOfStateLabel || profile.headOfGovernmentLabel || "Not available";
   const leaderLabel = profile.headOfStateLabel ? "Current head of state" : "Current head of government";
   const recentElection = recentNationalElectionByCountry[country] || "Not available from selected source";
+  const region = regionByCountry[country] || "Region not classified";
+  const narrative = buildCountryNarrative(country, state.selectedIndicator);
   const flagMarkup = profile.flagImage
     ? `<img class="profile-flag" src="${profile.flagImage}" alt="Flag of ${country}" loading="lazy" />`
     : `<div class="profile-flag" aria-hidden="true"></div>`;
@@ -636,31 +1130,37 @@ function renderCountryProfileCard(country, profile) {
   elements.countryProfile.innerHTML = `
     <article class="profile-card">
       ${flagMarkup}
-      <div class="profile-meta">
-        <article>
-          <p>Country</p>
-          <strong>${country}</strong>
-        </article>
-        <article>
-          <p>Independence date</p>
-          <strong>${independenceDate}</strong>
-        </article>
-        <article>
-          <p>${leaderLabel}</p>
-          <strong>${leaderName}</strong>
-        </article>
-        <article>
-          <p>Most recent national election</p>
-          <strong>${recentElection}</strong>
-        </article>
-        <p class="profile-source">
-          Independence dates from
-          <a href="https://www.penglobalinc.com/independence-here-are-the-list-of-african-countries-and-their-independence-dates" target="_blank" rel="noreferrer">PEN Global</a>,
-          election history from
-          <a href="https://www.eisa.org/election-calendar/" target="_blank" rel="noreferrer">EISA</a>,
-          and flag/current leadership from
-          <a href="${profile.countryUrl}" target="_blank" rel="noreferrer">Wikidata</a>.
-        </p>
+      <div class="profile-story">
+        <div class="profile-identity">
+          <h3>${country}</h3>
+          <span class="profile-region">${region}</span>
+        </div>
+        <p class="profile-narrative">${narrative}</p>
+        <details class="profile-secondary">
+          <summary>Political and historical details</summary>
+          <div class="profile-meta">
+            <article>
+              <p>Independence date</p>
+              <strong>${independenceDate}</strong>
+            </article>
+            <article>
+              <p>${leaderLabel}</p>
+              <strong>${leaderName}</strong>
+            </article>
+            <article>
+              <p>Most recent national election</p>
+              <strong>${recentElection}</strong>
+            </article>
+          </div>
+          <p class="profile-source">
+            Independence dates from
+            <a href="https://www.penglobalinc.com/independence-here-are-the-list-of-african-countries-and-their-independence-dates" target="_blank" rel="noreferrer">PEN Global</a>,
+            election history from
+            <a href="https://www.eisa.org/election-calendar/" target="_blank" rel="noreferrer">EISA</a>,
+            and flag/current leadership from
+            <a href="${profile.countryUrl}" target="_blank" rel="noreferrer">Wikidata</a>.
+          </p>
+        </details>
       </div>
     </article>
   `;
@@ -721,10 +1221,61 @@ async function loadCountryProfile(country) {
 
 function renderMap() {
   const indicator = getIndicator();
-  const { validRows, values } = buildMapData();
+  const { validRows, missingRows, values, rankByCountry, averageValue } = buildMapData();
+  if (!validRows.length) {
+    Plotly.react(
+      "map",
+      [],
+      {
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
+        margin: { t: 10, r: 10, b: 10, l: 10 },
+        xaxis: { visible: false },
+        yaxis: { visible: false },
+        annotations: [
+          {
+            text: `No ${indicator.label} data available in ${state.selectedYear}`,
+            x: 0.5,
+            y: 0.5,
+            xref: "paper",
+            yref: "paper",
+            showarrow: false,
+            font: { family: "Space Grotesk, sans-serif", size: 22, color: "#7f2f14" },
+          },
+        ],
+      },
+      chartConfig,
+    );
+    elements.mapTitle.textContent = `${indicator.title} in ${state.selectedYear}`;
+    return;
+  }
   const min = values.length ? Math.min(...values) : 0;
   const rawMax = values.length ? Math.max(...values) : 1;
   const max = rawMax === min ? min + 1 : rawMax;
+  const noDataColor = "#d8d1c0";
+
+  const missingTrace = {
+    type: "choropleth",
+    locationmode: "ISO-3",
+    locations: missingRows.map((row) => row.iso3),
+    z: missingRows.map(() => 1),
+    text: missingRows.map((row) => row.country),
+    customdata: missingRows.map((row) => [row.country, "No data", "N/A", averageValue, row.latestAvailableYear ?? "N/A"]),
+    colorscale: [
+      [0, noDataColor],
+      [1, noDataColor],
+    ],
+    showscale: false,
+    hovertemplate:
+      "<b>%{customdata[0]}</b><br>Selected value: %{customdata[1]}<br>Africa rank: %{customdata[2]}<br>Africa average: %{customdata[3]:.2f}<br>Latest available year: %{customdata[4]}<extra></extra>",
+    marker: {
+      line: {
+        color: "rgba(255,255,255,0.8)",
+        width: 0.7,
+      },
+    },
+    showlegend: false,
+  };
 
   const trace = {
     type: "choropleth",
@@ -732,7 +1283,13 @@ function renderMap() {
     locations: validRows.map((row) => row.iso3),
     z: validRows.map((row) => row.value),
     text: validRows.map((row) => row.country),
-    customdata: validRows.map((row) => [row.country, row.value]),
+    customdata: validRows.map((row) => [
+      row.country,
+      row.value,
+      rankByCountry[row.country],
+      averageValue,
+      getLatestAvailableRow(row.country, indicator.key)?.Year ?? "N/A",
+    ]),
     colorscale: [
       [0, "#f0d7b5"],
       [0.35, "#d49b53"],
@@ -746,18 +1303,50 @@ function renderMap() {
       },
     },
     colorbar: {
-      title: indicator.label,
+      title: `${indicator.label} score`,
       tickfont: { size: 11 },
     },
     zmin: min,
     zmax: max,
-    hovertemplate: "<b>%{customdata[0]}</b><br>Score: %{customdata[1]:.2f}<extra></extra>",
+    hovertemplate:
+      "<b>%{customdata[0]}</b><br>Selected value: %{customdata[1]:.2f}<br>Africa rank: %{customdata[2]}<br>Africa average: %{customdata[3]:.2f}<br>Latest available year: %{customdata[4]}<extra></extra>",
+    showlegend: false,
+  };
+
+  const noDataLegendTrace = {
+    type: "scattergeo",
+    mode: "markers",
+    name: "No data",
+    lat: [0],
+    lon: [0],
+    visible: "legendonly",
+    showlegend: true,
+    marker: {
+      size: 12,
+      color: noDataColor,
+      symbol: "square",
+      line: { color: "rgba(30,42,39,0.2)", width: 1 },
+    },
+    hoverinfo: "skip",
   };
 
   const layout = {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     margin: { t: 10, r: 10, b: 10, l: 10 },
+    transition: {
+      duration: 350,
+      easing: "cubic-in-out",
+    },
+    legend: {
+      title: { text: "Map Legend" },
+      orientation: "h",
+      x: 0,
+      y: 1.02,
+      bgcolor: "rgba(255,247,231,0.86)",
+      bordercolor: "rgba(30,42,39,0.08)",
+      borderwidth: 1,
+    },
     geo: {
       scope: "africa",
       projection: { type: "natural earth" },
@@ -773,7 +1362,7 @@ function renderMap() {
     },
   };
 
-  Plotly.react("map", [trace], layout, chartConfig);
+  Plotly.react("map", [missingTrace, trace, noDataLegendTrace], layout, chartConfig);
 
   const mapNode = document.getElementById("map");
   if (!state.mapBound) {
@@ -782,11 +1371,7 @@ function renderMap() {
       if (!point) {
         return;
       }
-      state.selectedCountry = point.customdata[0];
-      state.selectedProfileCountry = point.customdata[0];
-      state.selectedAfroCountry = point.customdata[0];
-      elements.countryProfileSelect.value = state.selectedProfileCountry;
-      elements.afroCountrySelect.value = state.selectedAfroCountry;
+      syncSharedCountry(point.customdata[0]);
       renderCountryDetail();
       renderLatestProfileChart();
       renderAfroCardGrid();
@@ -800,21 +1385,44 @@ function renderMap() {
 
 function renderCountryDetail() {
   const indicator = getIndicator();
-  const series = (rowsByCountry[state.selectedCountry] || []).map((row) => ({
+  const baseCountry = state.selectedProfileCountry || state.selectedCountry;
+  const compareLabel = getCompareLabel(baseCountry);
+  const series = (rowsByCountry[baseCountry] || []).map((row) => ({
     year: row.Year,
     value: row[indicator.key],
   }));
+  const comparisonSeries = buildComparisonSeries(baseCountry, indicator.key);
+  const seriesWithRolling = rollingAverage(series);
+  const comparisonWithRolling = rollingAverage(comparisonSeries);
 
-  const currentRow = series.find((row) => row.year === state.selectedYear);
-  const validSeries = series.filter((row) => row.value !== null);
+  const currentRow = seriesWithRolling.find((row) => row.year === state.selectedYear);
+  const currentCompareRow = comparisonWithRolling.find((row) => row.year === state.selectedYear);
+  const validSeries = seriesWithRolling.filter((row) => row.value !== null);
   const highest = validSeries.reduce((best, row) => (!best || row.value > best.value ? row : best), null);
   const lowest = validSeries.reduce((best, row) => (!best || row.value < best.value ? row : best), null);
+  const first = validSeries[0] || null;
+  const showRolling = isNoisyIndicator(indicator.key);
+  const selectedComparableValue =
+    currentRow && (state.showRollingAverage && showRolling ? currentRow.rolling : currentRow.value) !== null
+      ? state.showRollingAverage && showRolling
+        ? currentRow.rolling
+        : currentRow.value
+      : null;
+  const fiveYearBaseline =
+    currentRow && currentRow.year
+      ? [...validSeries].reverse().find((row) => row.year <= currentRow.year - 5) || null
+      : null;
+  const selectedTraceValues = state.showRollingAverage && showRolling ? seriesWithRolling.map((row) => row.rolling) : seriesWithRolling.map((row) => row.value);
+  const comparisonTraceValues = state.showRollingAverage && showRolling
+    ? comparisonWithRolling.map((row) => row.rolling)
+    : comparisonWithRolling.map((row) => row.value);
 
   const trace = {
     type: "scatter",
     mode: "lines+markers",
-    x: series.map((row) => row.year),
-    y: series.map((row) => row.value),
+    x: seriesWithRolling.map((row) => row.year),
+    y: selectedTraceValues,
+    name: baseCountry,
     line: {
       color: "#c15d2a",
       width: 3,
@@ -825,22 +1433,75 @@ function renderCountryDetail() {
       color: "#6c2d13",
     },
     connectgaps: false,
-    hovertemplate: "Year %{x}<br>Score %{y:.2f}<extra></extra>",
+    hovertemplate: `${baseCountry}<br>Year %{x}<br>${indicator.label}: %{y:.2f}<extra></extra>`,
+  };
+
+  const comparisonTrace = {
+    type: "scatter",
+    mode: "lines",
+    x: comparisonWithRolling.map((row) => row.year),
+    y: comparisonTraceValues,
+    name: compareLabel,
+    line: {
+      color: "#48653d",
+      width: 3,
+      dash: "dot",
+      shape: "spline",
+    },
+    connectgaps: false,
+    hovertemplate: `${compareLabel}<br>Year %{x}<br>${indicator.label}: %{y:.2f}<extra></extra>`,
   };
 
   const highlightTrace =
-    currentRow && currentRow.value !== null
+    currentRow && (state.showRollingAverage && showRolling ? currentRow.rolling !== null : currentRow.value !== null)
       ? {
           type: "scatter",
           mode: "markers",
           x: [currentRow.year],
-          y: [currentRow.value],
+          y: [state.showRollingAverage && showRolling ? currentRow.rolling : currentRow.value],
           marker: {
-            size: 14,
+            size: 16,
             color: "#1e2a27",
-            line: { width: 2, color: "#fff" },
+            line: { width: 3, color: "#fff5e0" },
+            symbol: "diamond",
           },
-          hovertemplate: "Selected year %{x}<br>Score %{y:.2f}<extra></extra>",
+          hovertemplate: "Selected year %{x}<br>Value %{y:.2f}<extra></extra>",
+        }
+      : null;
+
+  const peakTrace =
+    highest
+      ? {
+          type: "scatter",
+          mode: "markers+text",
+          x: [highest.year],
+          y: [highest.value],
+          text: [`Peak ${highest.value.toFixed(2)} (${highest.year})`],
+          textposition: "top center",
+          marker: {
+            size: 10,
+            color: "#5b7a32",
+            line: { width: 2, color: "#fff5e0" },
+          },
+          hovertemplate: "%{text}<extra></extra>",
+        }
+      : null;
+
+  const troughTrace =
+    lowest
+      ? {
+          type: "scatter",
+          mode: "markers+text",
+          x: [lowest.year],
+          y: [lowest.value],
+          text: [`Trough ${lowest.value.toFixed(2)} (${lowest.year})`],
+          textposition: "bottom center",
+          marker: {
+            size: 10,
+            color: "#9f4f1a",
+            line: { width: 2, color: "#fff5e0" },
+          },
+          hovertemplate: "%{text}<extra></extra>",
         }
       : null;
 
@@ -856,18 +1517,48 @@ function renderCountryDetail() {
       zeroline: false,
     },
     yaxis: {
-      title: indicator.label,
+      title: `${indicator.label} score`,
       gridcolor: "rgba(30,42,39,0.08)",
       zeroline: false,
     },
-    showlegend: false,
+    legend: {
+      orientation: "h",
+      y: 1.08,
+      x: 0,
+      bgcolor: "rgba(255,247,231,0.78)",
+    },
   };
 
-  const traces = highlightTrace ? [trace, highlightTrace] : [trace];
+  const traces = [trace, comparisonTrace];
+  if (peakTrace) {
+    traces.push(peakTrace);
+  }
+  if (troughTrace) {
+    traces.push(troughTrace);
+  }
+  if (highlightTrace) {
+    traces.push(highlightTrace);
+  }
   Plotly.react("country-chart", traces, layout, chartConfig);
 
-  elements.detailTitle.textContent = state.selectedCountry;
-  elements.detailNote.textContent = indicator.title;
+  elements.detailTitle.textContent = baseCountry;
+  elements.detailNote.textContent = `${indicator.title} compared with ${compareLabel}`;
+  elements.chartControls.hidden = !showRolling;
+  elements.rollingAverageToggle.checked = state.showRollingAverage && showRolling;
+  elements.chartChangeSummary.innerHTML = `
+    <article class="chart-change-card">
+      <p>Change since first available year</p>
+      <strong>${first && currentRow && selectedComparableValue !== null ? `${formatDelta(selectedComparableValue - first.value)} since ${first.year}` : "No data"}</strong>
+    </article>
+    <article class="chart-change-card">
+      <p>5-year change</p>
+      <strong>${currentRow && selectedComparableValue !== null && fiveYearBaseline ? `${formatDelta(selectedComparableValue - fiveYearBaseline.value)} since ${fiveYearBaseline.year}` : "No data"}</strong>
+    </article>
+    <article class="chart-change-card">
+      <p>${compareLabel} in ${state.selectedYear}</p>
+      <strong>${currentCompareRow && currentCompareRow.value !== null ? formatValue(currentCompareRow.value) : "No data"}</strong>
+    </article>
+  `;
   elements.countrySummary.innerHTML = `
     <article>
       <p>Selected year</p>
@@ -882,7 +1573,7 @@ function renderCountryDetail() {
       <strong>${lowest ? `${formatValue(lowest.value)} (${lowest.year})` : "No data"}</strong>
     </article>
   `;
-  loadCountryProfile(state.selectedCountry);
+  loadCountryProfile(baseCountry);
 }
 
 function renderCountryProfileSelect() {
@@ -892,6 +1583,36 @@ function renderCountryProfileSelect() {
         `<option value="${country}"${country === state.selectedProfileCountry ? " selected" : ""}>${country}</option>`,
     )
     .join("");
+}
+
+function renderCompareCountrySelect() {
+  const availableCountries = dataset.countries.filter((country) => country !== state.selectedProfileCountry);
+  if (!availableCountries.length) {
+    elements.compareCountrySelect.innerHTML = "";
+    elements.compareCountryWrap.hidden = true;
+    return;
+  }
+
+  if (!availableCountries.includes(state.compareCountry)) {
+    state.compareCountry = availableCountries[0];
+  }
+
+  elements.compareCountrySelect.innerHTML = availableCountries
+    .map(
+      (country) =>
+        `<option value="${country}"${country === state.compareCountry ? " selected" : ""}>${country}</option>`,
+    )
+    .join("");
+  elements.compareCountryWrap.hidden = state.compareMode !== "country";
+}
+
+function renderCompareControls() {
+  elements.compareModeButtons.forEach((button) => {
+    const active = button.dataset.compareMode === state.compareMode;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+  renderCompareCountrySelect();
 }
 
 function renderAfroCountrySelect() {
@@ -911,6 +1632,11 @@ function renderLatestProfileCards(profileRows) {
           <p>${row.title}</p>
           <strong>${row.value === null ? "No data" : row.value.toFixed(2)}</strong>
           <p class="indicator-year">${row.year ? `Latest year: ${row.year}` : "Latest year: not available"}</p>
+          <p class="indicator-compare">${
+            row.compareValue !== null && row.value !== null && row.year
+              ? `${row.compareLabel}: ${row.compareValue.toFixed(2)} in ${row.year} (${formatDelta(row.value - row.compareValue)} gap)`
+              : `${row.compareLabel}: not available`
+          }</p>
           <p class="indicator-rank">${
             row.comparison
               ? `Latest-score rank: ${row.comparison.rank} of ${row.comparison.total} countries (${row.comparison.percentile}th percentile in Africa)`
@@ -924,16 +1650,20 @@ function renderLatestProfileCards(profileRows) {
 
 function renderLatestProfileChart() {
   const country = state.selectedProfileCountry;
+  renderCompareControls();
   const profileRows = getLatestIndicatorProfile(country);
+  const compareLabel = getCompareLabel(country);
   const chartRows = profileRows.filter((row) => row.value !== null);
 
-  const trace = {
+  const countryTrace = {
     type: "bar",
     orientation: "h",
     x: chartRows.map((row) => row.value),
     y: chartRows.map((row) => row.label),
     text: chartRows.map((row) => `${row.value.toFixed(2)} (${row.year})`),
-    textposition: "auto",
+    textposition: "outside",
+    offsetgroup: "country",
+    name: country,
     marker: {
       color: ["#c7562a", "#dd8f2f", "#6f8d3f", "#3f6a42", "#9f4f1a", "#b96b33", "#577736"],
       line: {
@@ -944,10 +1674,30 @@ function renderLatestProfileChart() {
     hovertemplate: "<b>%{y}</b><br>Latest score: %{x:.2f}<br>Year: %{text}<extra></extra>",
   };
 
+  const comparisonTrace = {
+    type: "bar",
+    orientation: "h",
+    x: chartRows.map((row) => row.compareValue),
+    y: chartRows.map((row) => row.label),
+    text: chartRows.map((row) => (row.compareValue !== null && row.year ? `${row.compareValue.toFixed(2)} (${row.year})` : "")),
+    textposition: "none",
+    offsetgroup: "comparison",
+    name: compareLabel,
+    marker: {
+      color: "rgba(91, 122, 50, 0.68)",
+      line: {
+        color: "rgba(30,42,39,0.12)",
+        width: 1,
+      },
+    },
+    hovertemplate: `<b>%{y}</b><br>${compareLabel}: %{x:.2f}<br>Year: %{text}<extra></extra>`,
+  };
+
   const layout = {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(255,250,241,0.55)",
     margin: { t: 10, r: 16, b: 40, l: 120 },
+    barmode: "group",
     xaxis: {
       title: "Latest score",
       gridcolor: "rgba(30,42,39,0.08)",
@@ -957,19 +1707,28 @@ function renderLatestProfileChart() {
       automargin: true,
       gridcolor: "rgba(0,0,0,0)",
     },
-    showlegend: false,
+    legend: {
+      orientation: "h",
+      y: 1.08,
+      x: 0,
+      bgcolor: "rgba(255,247,231,0.78)",
+    },
   };
 
-  Plotly.react("latest-profile-chart", [trace], layout, chartConfig);
+  Plotly.react("latest-profile-chart", [countryTrace, comparisonTrace], layout, chartConfig);
 
   elements.latestProfileTitle.textContent = `${country} latest governance profile`;
-  elements.latestProfileNote.textContent = "Latest non-missing value for each indicator, using the newest year available for that country.";
+  elements.latestProfileNote.textContent = `Latest non-missing value for each indicator, compared with ${compareLabel} in the same year.`;
   renderLatestProfileCards(profileRows);
 }
 
 function renderAfroCardGrid() {
   const country = state.selectedAfroCountry;
   const linkedIndicators = getAfroLinkedIndicators(country);
+  state.selectedAfroIndicator = normalizeAfroIndicatorKey(state.selectedAfroIndicator);
+  if (!linkedIndicators.some((indicator) => indicator.key === state.selectedAfroIndicator)) {
+    state.selectedAfroIndicator = linkedIndicators[0]?.key || "Score_CPI_Scores_Long";
+  }
 
   elements.afroTitle.textContent = `${country} and Afrobarometer`;
   elements.afroNote.textContent = "Hover or click an indicator card to update the linked Afrobarometer response chart.";
@@ -1028,8 +1787,13 @@ function renderAfroNotCovered(title) {
     chartConfig,
   );
 
-  elements.afroResponseTitle.textContent = title;
+  elements.afroResponseTitle.textContent = "Afrobarometer";
   elements.afroResponseNote.textContent = "This country is not reported in the linked Afrobarometer survey data.";
+  elements.afroResponseLegend.innerHTML = "";
+  elements.afroSurveySummary.innerHTML = `
+    <span class="afro-survey-year">${surveyYearLabel}</span>
+    <p class="afro-interpretation">No survey distribution is available for this country in the linked Afrobarometer question.</p>
+  `;
   elements.afroResponseMeta.innerHTML = `
     <article class="afro-meta-card">
       <p>Coverage</p>
@@ -1038,34 +1802,183 @@ function renderAfroNotCovered(title) {
   `;
 }
 
-function buildSingleAfroChart(metric, metricDef) {
-  const order = responseOrderByMetric[metricDef.key] || Object.keys(metric.raw || {});
+function buildAfroInterpretation(metrics) {
+  const balances = metrics.map((metric) => getAfroMetricBalance(metric));
+  const avgPositive = average(balances.map((item) => item.positive).filter((value) => value !== null));
+  const avgNegative = average(balances.map((item) => item.negative).filter((value) => value !== null));
+  const avgNeutral = average(balances.map((item) => item.neutral).filter((value) => value !== null));
+
+  if (avgPositive === null || avgNegative === null) {
+    return "Survey balance is not available for this question.";
+  }
+
+  if (Math.abs(avgPositive - avgNegative) < 1) {
+    return `Opinion is broadly balanced, with favorable views at ${avgPositive.toFixed(1)}% and unfavorable views at ${avgNegative.toFixed(1)}%${avgNeutral ? `, alongside ${avgNeutral.toFixed(1)}% neutral or middle responses.` : "."}`;
+  }
+
+  return avgPositive > avgNegative
+    ? `Opinion leans favorable, with ${avgPositive.toFixed(1)}% favorable versus ${avgNegative.toFixed(1)}% unfavorable responses${avgNeutral ? ` and ${avgNeutral.toFixed(1)}% in the middle.` : "."}`
+    : `Opinion leans unfavorable, with ${avgNegative.toFixed(1)}% unfavorable versus ${avgPositive.toFixed(1)}% favorable responses${avgNeutral ? ` and ${avgNeutral.toFixed(1)}% in the middle.` : "."}`;
+}
+
+function getAfroMetricScale(metricKey) {
+  return responseScaleByMetric[metricKey] || [];
+}
+
+function getAfroDisplayLabel(metricKey, label) {
+  return afroQuestionTextConfig[metricKey]?.responseLabels?.[label] || label;
+}
+
+function getAfroResponseScaleLabel(metricKey) {
+  return (responseOrderByMetric[metricKey] || []).map((label) => getAfroDisplayLabel(metricKey, label)).join(" -> ");
+}
+
+function getAfroMetricBalance(metric) {
+  const scale = getAfroMetricScale(metric.key);
+  return scale.reduce(
+    (acc, item) => {
+      const value = Number(metric.data?.raw?.[item.label] ?? 0);
+      if (item.side === "positive") {
+        acc.positive += value;
+      } else if (item.side === "negative") {
+        acc.negative += value;
+      } else {
+        acc.neutral += value;
+      }
+      return acc;
+    },
+    { positive: 0, negative: 0, neutral: 0 },
+  );
+}
+
+function getAfroSummaryStats(metrics) {
+  const balances = metrics.map((metric) => getAfroMetricBalance(metric));
+  return {
+    favorable: average(balances.map((item) => item.positive).filter((value) => value !== null)),
+    unfavorable: average(balances.map((item) => item.negative).filter((value) => value !== null)),
+    neutral: average(balances.map((item) => item.neutral).filter((value) => value !== null)),
+  };
+}
+
+function buildAfroLegendMarkup(metrics) {
+  const trustMetricKeys = ["trust_president", "trust_police", "trust_parliament", "trust_army", "trust_courts"];
+  const hasTrustMetrics = metrics.some((metric) => trustMetricKeys.includes(metric.key));
+  const trustLegendMarkup = hasTrustMetrics
+    ? `
+        <section class="afro-legend-group">
+          <p class="afro-legend-title">Trust scale</p>
+          <div class="afro-legend-items">
+            ${getAfroMetricScale("trust_president")
+              .map(
+                (item) => `
+                  <div class="afro-legend-item">
+                    <span class="afro-legend-swatch" style="background:${item.color};"></span>
+                    <span class="afro-legend-label">${getAfroDisplayLabel("trust_president", item.label)}</span>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </section>
+      `
+    : "";
+
+  return metrics
+    .filter((metric) => !trustMetricKeys.includes(metric.key))
+    .map((metric) => {
+      const scale = getAfroMetricScale(metric.key);
+      const ordered = [
+        ...scale.filter((item) => item.side === "negative"),
+        ...scale.filter((item) => item.side === "neutral"),
+        ...scale.filter((item) => item.side === "positive"),
+      ];
+
+      return `
+        <section class="afro-legend-group">
+          <p class="afro-legend-title">${metric.label}</p>
+          <div class="afro-legend-items">
+            ${ordered
+              .map(
+                (item) => `
+                  <div class="afro-legend-item">
+                    <span class="afro-legend-swatch" style="background:${item.color};"></span>
+                    <span class="afro-legend-label">${getAfroDisplayLabel(metric.key, item.label)}</span>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </section>
+      `;
+    })
+    .join("") + trustLegendMarkup;
+}
+
+function buildDivergingAfroChart(metrics) {
+  const traceOrder = [];
+  const seen = new Set();
+
+  metrics.forEach((metric) => {
+    const scale = getAfroMetricScale(metric.key);
+    const negative = scale.filter((item) => item.side === "negative").reverse();
+    const neutral = scale.filter((item) => item.side === "neutral");
+    const positive = scale.filter((item) => item.side === "positive");
+    [...negative, ...neutral, ...positive].forEach((item) => {
+      const key = `${item.label}-${item.side}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        traceOrder.push(item);
+      }
+    });
+  });
 
   return {
     data: [
-      {
+      ...traceOrder.map((item) => ({
         type: "bar",
-        x: order.map((label) => metric.raw?.[label] ?? 0),
-        y: order,
+        name: item.label,
+        showlegend: false,
         orientation: "h",
+        y: metrics.map((metric) => metric.label),
+        x: metrics.map((metric) => {
+          const scale = getAfroMetricScale(metric.key);
+          const present = scale.find((scaleItem) => scaleItem.label === item.label && scaleItem.side === item.side);
+          if (!present) {
+            return 0;
+          }
+          const value = Number(metric.data?.raw?.[item.label] ?? 0);
+          return item.side === "negative" ? -value : value;
+        }),
+        customdata: metrics.map((metric) => {
+          const scale = getAfroMetricScale(metric.key);
+          const present = scale.find((scaleItem) => scaleItem.label === item.label && scaleItem.side === item.side);
+          return [metric.label, item.label, present ? Number(metric.data?.raw?.[item.label] ?? 0) : null];
+        }),
         marker: {
-          color: "#c7562a",
-          line: { color: "rgba(30,42,39,0.15)", width: 1 },
+          color: item.color,
+          line: { color: "rgba(30,42,39,0.12)", width: 1 },
         },
-        hovertemplate: "%{y}<br>%{x:.1f}%<extra></extra>",
-      },
+        hovertemplate:
+          "<b>%{customdata[0]}</b><br>" +
+          "%{customdata[1]}: %{customdata[2]:.1f}%<extra></extra>",
+      })),
     ],
     layout: {
+      barmode: "relative",
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(255,250,241,0.55)",
-      margin: { t: 10, r: 16, b: 40, l: 190 },
+      margin: { t: 10, r: 16, b: 60, l: 190 },
       xaxis: {
-        title: "Share of respondents (%)",
+        title: "Response distribution (%)",
+        tickvals: [-100, -50, 0, 50, 100],
+        ticktext: ["100", "50", "0", "50", "100"],
         gridcolor: "rgba(30,42,39,0.08)",
         zeroline: false,
       },
       yaxis: {
         automargin: true,
+        categoryorder: "array",
+        categoryarray: metrics.map((metric) => metric.label),
         gridcolor: "rgba(0,0,0,0)",
       },
       showlegend: false,
@@ -1073,86 +1986,16 @@ function buildSingleAfroChart(metric, metricDef) {
   };
 }
 
-function buildGroupedAfroChart(metrics) {
-  const responseLabels = ["Not at all", "Just a little", "Somewhat", "A lot"];
-  const colors = ["#9f4f1a", "#c7562a", "#dd8f2f", "#5b7a32"];
-
-  return {
-    data: responseLabels.map((responseLabel, index) => ({
-      type: "bar",
-      name: responseLabel,
-      x: metrics.map((metric) => metric.label),
-      y: metrics.map((metric) => metric.data?.raw?.[responseLabel] ?? 0),
-      marker: { color: colors[index] },
-      hovertemplate: "%{x}<br>" + responseLabel + ": %{y:.1f}%<extra></extra>",
-    })),
-    layout: {
-      barmode: "group",
-      paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(255,250,241,0.55)",
-      margin: { t: 10, r: 16, b: 90, l: 50 },
-      xaxis: {
-        tickangle: -18,
-        gridcolor: "rgba(0,0,0,0)",
-      },
-      yaxis: {
-        title: "Share of respondents (%)",
-        gridcolor: "rgba(30,42,39,0.08)",
-        zeroline: false,
-      },
-      legend: {
-        orientation: "h",
-        y: 1.12,
-      },
-    },
-  };
-}
-
-function buildGroupedMetricAfroChart(metrics) {
-  const colors = ["#c7562a", "#5b7a32"];
-
-  return {
-    data: metrics.map((metric, index) => {
-      const order = responseOrderByMetric[metric.key] || Object.keys(metric.data?.raw || {});
-      return {
-        type: "bar",
-        name: metric.label,
-        x: order,
-        y: order.map((response) => metric.data?.raw?.[response] ?? 0),
-        marker: { color: colors[index % colors.length] },
-        hovertemplate: `${metric.label}<br>%{x}: %{y:.1f}%<extra></extra>`,
-      };
-    }),
-    layout: {
-      barmode: "group",
-      paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(255,250,241,0.55)",
-      margin: { t: 10, r: 16, b: 90, l: 55 },
-      xaxis: {
-        tickangle: -18,
-        gridcolor: "rgba(0,0,0,0)",
-      },
-      yaxis: {
-        title: "Share of respondents (%)",
-        gridcolor: "rgba(30,42,39,0.08)",
-        zeroline: false,
-      },
-      legend: {
-        orientation: "h",
-        y: 1.12,
-      },
-    },
-  };
-}
-
 function renderAfroResponseChart() {
   const country = state.selectedAfroCountry;
-  const linkedIndicator = afrobarometerIndicatorMap[state.selectedAfroIndicator];
-  const selectedIndicator = indicatorMeta.find((item) => item.key === state.selectedAfroIndicator);
-  const metrics = linkedIndicator.metrics.map((metric) => ({
-    ...metric,
-    data: getAfroMetric(country, metric.key),
-  }));
+  state.selectedAfroIndicator = normalizeAfroIndicatorKey(state.selectedAfroIndicator);
+  const linkedIndicator = getAfroLinkedIndicators(country).find((item) => item.key === state.selectedAfroIndicator);
+  const selectedIndicator = linkedIndicator || { label: "Afrobarometer" };
+  if (!linkedIndicator) {
+    renderAfroNotCovered(selectedIndicator.label);
+    return;
+  }
+  const metrics = linkedIndicator ? linkedIndicator.metrics : [];
   const coveredMetrics = metrics.filter((metric) => metric.data?.coverage === "covered");
 
   if (!coveredMetrics.length) {
@@ -1160,25 +2003,46 @@ function renderAfroResponseChart() {
     return;
   }
 
-  const chart =
-    linkedIndicator.type === "group"
-      ? buildGroupedAfroChart(coveredMetrics)
-      : linkedIndicator.type === "groupedMetrics"
-        ? buildGroupedMetricAfroChart(coveredMetrics)
-      : buildSingleAfroChart(coveredMetrics[0].data, coveredMetrics[0]);
+  const chart = buildDivergingAfroChart(coveredMetrics);
+  const summary = getAfroSummaryStats(coveredMetrics);
 
   Plotly.react("afro-response-chart", chart.data, chart.layout, chartConfig);
+  elements.afroResponseLegend.innerHTML = buildAfroLegendMarkup(coveredMetrics);
 
   elements.afroResponseTitle.textContent = "Afrobarometer";
   elements.afroResponseNote.textContent = linkedIndicator.description;
+  elements.afroSurveySummary.innerHTML = `
+    <div class="afro-summary-topline">
+      <span class="afro-survey-year">${surveyYearLabel}</span>
+      <div class="afro-balance-strip">
+        <article class="afro-balance-card">
+          <p>Favorable</p>
+          <strong>${summary.favorable !== null ? `${summary.favorable.toFixed(1)}%` : "N/A"}</strong>
+        </article>
+        <article class="afro-balance-card">
+          <p>Unfavorable</p>
+          <strong>${summary.unfavorable !== null ? `${summary.unfavorable.toFixed(1)}%` : "N/A"}</strong>
+        </article>
+        ${
+          summary.neutral && summary.neutral > 0
+            ? `<article class="afro-balance-card">
+                 <p>Neutral / middle</p>
+                 <strong>${summary.neutral.toFixed(1)}%</strong>
+               </article>`
+            : ""
+        }
+      </div>
+    </div>
+    <p class="afro-interpretation">${buildAfroInterpretation(coveredMetrics)}</p>
+  `;
   elements.afroResponseMeta.innerHTML =
     linkedIndicator.type === "group"
       ? coveredMetrics
           .map(
             (metric) => `
               <article class="afro-meta-card">
-                <p>${metric.label}</p>
-                <strong>Response distribution shown</strong>
+                <p>Question label</p>
+                <strong>${metric.label}</strong>
               </article>
             `,
           )
@@ -1188,7 +2052,7 @@ function renderAfroResponseChart() {
             .map(
               (metric) => `
                 <article class="afro-meta-card">
-                  <p>Linked Afrobarometer question</p>
+                  <p>Question label</p>
                   <strong>${metric.label}</strong>
                 </article>
               `,
@@ -1196,8 +2060,12 @@ function renderAfroResponseChart() {
             .join("")
       : `
           <article class="afro-meta-card">
-            <p>Linked Afrobarometer question</p>
+            <p>Question label</p>
             <strong>${coveredMetrics[0].label}</strong>
+          </article>
+          <article class="afro-meta-card">
+            <p>Response scale</p>
+            <strong>${getAfroResponseScaleLabel(coveredMetrics[0].key)}</strong>
           </article>
         `;
 }
@@ -1205,6 +2073,7 @@ function renderAfroResponseChart() {
 function renderAll() {
   elements.activeYearLabel.textContent = state.selectedYear;
   elements.yearSlider.value = state.selectedYear;
+  renderIndicatorEmptyState();
   renderStats();
   renderMap();
   renderCountryDetail();
@@ -1238,14 +2107,47 @@ function attachEvents() {
   });
 
   elements.playButton.addEventListener("click", togglePlayback);
-  elements.countryProfileSelect.addEventListener("change", (event) => {
-    state.selectedProfileCountry = event.target.value;
-    renderLatestProfileChart();
+  elements.rollingAverageToggle.addEventListener("change", (event) => {
+    state.showRollingAverage = event.target.checked;
+    renderCountryDetail();
   });
-  elements.afroCountrySelect.addEventListener("change", (event) => {
-    state.selectedAfroCountry = event.target.value;
+  elements.jumpFirstYearButton.addEventListener("click", () => {
+    const availability = getIndicatorAvailability();
+    if (availability.firstAvailableYear !== null) {
+      state.selectedYear = availability.firstAvailableYear;
+      renderAll();
+    }
+  });
+  elements.countryProfileSelect.addEventListener("change", (event) => {
+    syncSharedCountry(event.target.value);
+    renderLatestProfileChart();
+    renderCountryDetail();
     renderAfroCardGrid();
     renderAfroResponseChart();
+  });
+  elements.compareModeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      state.compareMode = button.dataset.compareMode;
+      renderLatestProfileChart();
+      renderCountryDetail();
+    });
+  });
+  elements.compareCountrySelect.addEventListener("change", (event) => {
+    state.compareCountry = event.target.value;
+    renderLatestProfileChart();
+    renderCountryDetail();
+  });
+  elements.afroCountrySelect.addEventListener("change", (event) => {
+    syncSharedCountry(event.target.value);
+    renderLatestProfileChart();
+    renderCountryDetail();
+    renderAfroCardGrid();
+    renderAfroResponseChart();
+  });
+  elements.tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      navigateToTab(button.dataset.tab);
+    });
   });
 }
 
@@ -1253,8 +2155,11 @@ function init() {
   elements.countryCount.textContent = dataset.countries.length;
   elements.yearRangeStat.textContent = `${dataset.years[0]}-${dataset.years[dataset.years.length - 1]}`;
   elements.indicatorCount.textContent = indicatorMeta.length;
+  syncYearForIndicator();
+  renderTabs();
   renderIndicatorButtons();
   renderCountryProfileSelect();
+  renderCompareControls();
   renderAfroCountrySelect();
   attachEvents();
   renderAll();
