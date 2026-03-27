@@ -321,6 +321,8 @@ const state = {
   selectedProfileCountry: null,
   compareMode: "africa",
   compareCountry: null,
+  selectedProfileSummaryIndicator: null,
+  hoverProfileSummaryIndicator: null,
   selectedAfroCountry: null,
   selectedAfroIndicator: "Score_CPI_Scores_Long",
   showRollingAverage: false,
@@ -848,6 +850,7 @@ function getLatestIndicatorProfile(country) {
   return indicatorMeta.map((indicator) => {
     const latestRow = [...rows].reverse().find((row) => row[indicator.key] !== null);
     let comparison = null;
+    let distribution = null;
 
     if (latestRow) {
       const peerRows = dataset.rows
@@ -863,6 +866,8 @@ function getLatestIndicatorProfile(country) {
         total,
         percentile,
       };
+
+      distribution = peerRows.map((row) => row[indicator.key]);
     }
 
     return {
@@ -870,13 +875,57 @@ function getLatestIndicatorProfile(country) {
       label: indicator.label,
       title: indicator.title,
       description: indicator.description,
+      direction: indicator.direction,
       value: latestRow ? latestRow[indicator.key] : null,
       year: latestRow ? latestRow.Year : null,
       compareLabel: getCompareLabel(country),
       compareValue: latestRow ? getComparisonValue(state.compareMode, country, indicator.key, latestRow.Year) : null,
+      distribution,
       comparison,
+      trendAnalysis: getIndicatorTrendAnalysis(country, indicator.key),
     };
   });
+}
+
+function getIndicatorTrendAnalysis(country, indicatorKey) {
+  const series = (rowsByCountry[country] || [])
+    .filter((row) => row[indicatorKey] !== null)
+    .map((row) => ({ year: row.Year, value: row[indicatorKey] }));
+
+  if (series.length < 2) {
+    return {
+      summary: "Trend analysis: Not enough data to assess change over time.",
+      overallDelta: null,
+      recentDelta: null,
+      firstYear: series[0]?.year || null,
+      latestYear: series[series.length - 1]?.year || null,
+    };
+  }
+
+  const first = series[0];
+  const latest = series[series.length - 1];
+  const overallDelta = latest.value - first.value;
+  const fiveYearBaseline = [...series].reverse().find((row) => row.year <= latest.year - 5) || null;
+  const recentDelta = fiveYearBaseline ? latest.value - fiveYearBaseline.value : null;
+
+  const overallPhrase =
+    Math.abs(overallDelta) < 0.01
+      ? `has stayed broadly flat since ${first.year}`
+      : `${overallDelta > 0 ? "is up" : "is down"} ${Math.abs(overallDelta).toFixed(2)} points since ${first.year}`;
+
+  const recentPhrase = fiveYearBaseline
+    ? Math.abs(recentDelta) < 0.01
+      ? `Over the last five years, it has remained broadly steady.`
+      : `Over the last five years, it ${recentDelta > 0 ? "rose" : "fell"} ${Math.abs(recentDelta).toFixed(2)} points since ${fiveYearBaseline.year}.`
+    : `A five-year comparison is not available yet.`;
+
+  return {
+    summary: `Trend analysis: The indicator ${overallPhrase}. ${recentPhrase}`,
+    overallDelta,
+    recentDelta,
+    firstYear: first.year,
+    latestYear: latest.year,
+  };
 }
 
 function getAfroLinkedIndicators(country) {
@@ -1625,27 +1674,68 @@ function renderAfroCountrySelect() {
 }
 
 function renderLatestProfileCards(profileRows) {
-  elements.latestProfileCards.innerHTML = profileRows
-    .map(
-      (row) => `
-        <article class="latest-profile-card">
-          <p>${row.title}</p>
-          <strong>${row.value === null ? "No data" : row.value.toFixed(2)}</strong>
-          <p class="indicator-year">${row.year ? `Latest year: ${row.year}` : "Latest year: not available"}</p>
-          <p class="indicator-compare">${
-            row.compareValue !== null && row.value !== null && row.year
-              ? `${row.compareLabel}: ${row.compareValue.toFixed(2)} in ${row.year} (${formatDelta(row.value - row.compareValue)} gap)`
-              : `${row.compareLabel}: not available`
-          }</p>
-          <p class="indicator-rank">${
-            row.comparison
-              ? `Latest-score rank: ${row.comparison.rank} of ${row.comparison.total} countries (${row.comparison.percentile}th percentile in Africa)`
-              : "Relative performance: not available"
-          }</p>
-        </article>
-      `,
-    )
-    .join("");
+  const activeKey = state.hoverProfileSummaryIndicator || state.selectedProfileSummaryIndicator;
+  const row = profileRows.find((item) => item.key === activeKey);
+
+  if (!row) {
+    elements.latestProfileCards.innerHTML = `
+      <article class="latest-profile-card latest-profile-card-empty">
+        <p>Indicator summary</p>
+        <strong>Hidden until selected</strong>
+        <p class="indicator-summary">Hover over or click an indicator box plot on the left to reveal its country performance summary here.</p>
+      </article>
+    `;
+    return;
+  }
+
+  elements.latestProfileCards.innerHTML = `
+    <article class="latest-profile-card">
+      <p>${row.title}</p>
+      <strong>${row.value === null ? "No data" : row.value.toFixed(2)}</strong>
+      <p class="indicator-year">${row.year ? `Latest year: ${row.year}` : "Latest year: not available"}</p>
+      <p class="indicator-summary">${buildIndicatorPerformanceSummary(row)}</p>
+      <p class="indicator-trend">${row.trendAnalysis?.summary || "Trend analysis: not available."}</p>
+      <p class="indicator-compare">${
+        row.compareValue !== null && row.value !== null && row.year
+          ? `${row.compareLabel}: ${row.compareValue.toFixed(2)} in ${row.year} (${formatDelta(row.value - row.compareValue)} gap)`
+          : `${row.compareLabel}: not available`
+      }</p>
+      <p class="indicator-rank">${
+        row.comparison
+          ? `Latest-score rank: ${row.comparison.rank} of ${row.comparison.total} countries (${row.comparison.percentile}th percentile in Africa)`
+          : "Relative performance: not available"
+      }</p>
+    </article>
+  `;
+}
+
+function buildIndicatorPerformanceSummary(row) {
+  if (row.value === null || !row.comparison) {
+    return "No summary is available because the latest observation is missing.";
+  }
+
+  const percentile = row.comparison.percentile;
+  let standing = "mid-range";
+  if (percentile >= 75) {
+    standing = row.direction === "Higher is worse" ? "among the highest levels in Africa" : "among the strongest performers in Africa";
+  } else if (percentile <= 25) {
+    standing = row.direction === "Higher is worse" ? "among the lowest levels in Africa" : "among the weakest performers in Africa";
+  }
+
+  if (row.compareValue !== null) {
+    const difference = row.value - row.compareValue;
+    if (Math.abs(difference) < 0.01) {
+      return `This latest result is broadly in line with ${row.compareLabel.toLowerCase()} and sits ${standing}.`;
+    }
+    const compareDirection = difference > 0 ? "above" : "below";
+    return `This latest result sits ${standing} and is ${Math.abs(difference).toFixed(2)} points ${compareDirection} ${row.compareLabel.toLowerCase()}.`;
+  }
+
+  return `This latest result sits ${standing} for the latest reported year.`;
+}
+
+function toProfileMiniChartId(key) {
+  return `latest-profile-mini-${key.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
 }
 
 function renderLatestProfileChart() {
@@ -1653,72 +1743,146 @@ function renderLatestProfileChart() {
   renderCompareControls();
   const profileRows = getLatestIndicatorProfile(country);
   const compareLabel = getCompareLabel(country);
-  const chartRows = profileRows.filter((row) => row.value !== null);
+  const chartRows = profileRows;
+  const latestProfileChartNode = document.getElementById("latest-profile-chart");
+  Plotly.purge("latest-profile-chart");
+  latestProfileChartNode.innerHTML = `
+    <div class="latest-profile-note-inline">Each indicator uses its own scale for readability.</div>
+    <div class="latest-profile-small-multiples">
+      ${chartRows
+        .map(
+          (row) => `
+            <article
+              class="latest-profile-mini-card${(state.hoverProfileSummaryIndicator || state.selectedProfileSummaryIndicator) === row.key ? " active" : ""}"
+              data-profile-summary-indicator="${row.key}"
+              tabindex="0"
+            >
+              <div class="latest-profile-mini-head">
+                <div>
+                  <strong class="latest-profile-mini-title">${row.title}</strong>
+                </div>
+                <div class="latest-profile-mini-meta">
+                  <strong>${row.value !== null && row.year ? `${row.value.toFixed(2)} (${row.year})` : "No data"}</strong>
+                </div>
+              </div>
+              <div id="${toProfileMiniChartId(row.key)}" class="latest-profile-mini-plot"></div>
+            </article>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
 
-  const countryTrace = {
-    type: "bar",
-    orientation: "h",
-    x: chartRows.map((row) => row.value),
-    y: chartRows.map((row) => row.label),
-    text: chartRows.map((row) => `${row.value.toFixed(2)} (${row.year})`),
-    textposition: "outside",
-    offsetgroup: "country",
-    name: country,
-    marker: {
-      color: ["#c7562a", "#dd8f2f", "#6f8d3f", "#3f6a42", "#9f4f1a", "#b96b33", "#577736"],
-      line: {
-        color: "rgba(30,42,39,0.15)",
-        width: 1,
-      },
-    },
-    hovertemplate: "<b>%{y}</b><br>Latest score: %{x:.2f}<br>Year: %{text}<extra></extra>",
-  };
-
-  const comparisonTrace = {
-    type: "bar",
-    orientation: "h",
-    x: chartRows.map((row) => row.compareValue),
-    y: chartRows.map((row) => row.label),
-    text: chartRows.map((row) => (row.compareValue !== null && row.year ? `${row.compareValue.toFixed(2)} (${row.year})` : "")),
-    textposition: "none",
-    offsetgroup: "comparison",
-    name: compareLabel,
-    marker: {
-      color: "rgba(91, 122, 50, 0.68)",
-      line: {
-        color: "rgba(30,42,39,0.12)",
-        width: 1,
-      },
-    },
-    hovertemplate: `<b>%{y}</b><br>${compareLabel}: %{x:.2f}<br>Year: %{text}<extra></extra>`,
-  };
-
-  const layout = {
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(255,250,241,0.55)",
-    margin: { t: 10, r: 16, b: 40, l: 120 },
-    barmode: "group",
-    xaxis: {
-      title: "Latest score",
-      gridcolor: "rgba(30,42,39,0.08)",
-      zeroline: false,
-    },
-    yaxis: {
-      automargin: true,
-      gridcolor: "rgba(0,0,0,0)",
-    },
-    legend: {
+  chartRows.forEach((row) => {
+    const boxTrace = {
+      type: "box",
       orientation: "h",
-      y: 1.08,
-      x: 0,
-      bgcolor: "rgba(255,247,231,0.78)",
-    },
-  };
+      x: row.distribution || [],
+      y: new Array((row.distribution || []).length).fill("Africa distribution"),
+      name: "Africa distribution",
+      boxpoints: false,
+      fillcolor: "rgba(212, 155, 83, 0.28)",
+      line: {
+        color: "rgba(127,47,20,0.5)",
+        width: 1.5,
+      },
+      marker: {
+        color: "rgba(212, 155, 83, 0.6)",
+      },
+      hoverinfo: "skip",
+    };
 
-  Plotly.react("latest-profile-chart", [countryTrace, comparisonTrace], layout, chartConfig);
+    const traceCountry = {
+      type: "scatter",
+      mode: "markers",
+      x: row.value !== null ? [row.value] : [],
+      y: row.value !== null ? ["Africa distribution"] : [],
+      name: country,
+      marker: {
+        size: 12,
+        color: "#c7562a",
+        line: { color: "#fff5e0", width: 2 },
+        symbol: "diamond",
+      },
+      hoverinfo: "skip",
+    };
+
+    const traceCompare = {
+      type: "scatter",
+      mode: "markers",
+      x: row.compareValue !== null ? [row.compareValue] : [],
+      y: row.compareValue !== null ? ["Africa distribution"] : [],
+      name: compareLabel,
+      marker: {
+        size: 11,
+        color: "rgba(91, 122, 50, 0.9)",
+        line: { color: "#fff5e0", width: 2 },
+        symbol: "circle",
+      },
+      hoverinfo: "skip",
+    };
+
+    const miniLayout = {
+      paper_bgcolor: "rgba(0,0,0,0)",
+      plot_bgcolor: "rgba(255,250,241,0.32)",
+      margin: { t: 4, r: 10, b: 24, l: 28 },
+      xaxis: {
+        gridcolor: "rgba(30,42,39,0.08)",
+        zeroline: false,
+      },
+      yaxis: {
+        automargin: true,
+        gridcolor: "rgba(0,0,0,0)",
+        showticklabels: false,
+      },
+      hovermode: false,
+      showlegend: false,
+    };
+
+    Plotly.react(toProfileMiniChartId(row.key), [boxTrace, traceCountry, traceCompare], miniLayout, chartConfig);
+  });
+
+  Array.from(latestProfileChartNode.querySelectorAll("[data-profile-summary-indicator]")).forEach((card) => {
+    const key = card.dataset.profileSummaryIndicator;
+    const activateHover = () => {
+      state.hoverProfileSummaryIndicator = key;
+      renderLatestProfileCards(profileRows);
+      latestProfileChartNode
+        .querySelectorAll("[data-profile-summary-indicator]")
+        .forEach((node) => node.classList.toggle("active", node.dataset.profileSummaryIndicator === key || node.dataset.profileSummaryIndicator === state.selectedProfileSummaryIndicator));
+    };
+
+    const clearHover = () => {
+      state.hoverProfileSummaryIndicator = null;
+      renderLatestProfileCards(profileRows);
+      latestProfileChartNode
+        .querySelectorAll("[data-profile-summary-indicator]")
+        .forEach((node) =>
+          node.classList.toggle("active", node.dataset.profileSummaryIndicator === state.selectedProfileSummaryIndicator),
+        );
+    };
+
+    card.addEventListener("mouseenter", activateHover);
+    card.addEventListener("focus", activateHover);
+    card.addEventListener("mouseleave", clearHover);
+    card.addEventListener("blur", clearHover);
+    card.addEventListener("click", () => {
+      state.selectedProfileSummaryIndicator = key;
+      state.hoverProfileSummaryIndicator = null;
+      renderLatestProfileChart();
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        state.selectedProfileSummaryIndicator = key;
+        state.hoverProfileSummaryIndicator = null;
+        renderLatestProfileChart();
+      }
+    });
+  });
 
   elements.latestProfileTitle.textContent = `${country} latest governance profile`;
-  elements.latestProfileNote.textContent = `Latest non-missing value for each indicator, compared with ${compareLabel} in the same year.`;
+  elements.latestProfileNote.textContent = `Small multiple comparison charts of the latest non-missing value for each indicator, comparing ${country} with ${compareLabel}.`;
   renderLatestProfileCards(profileRows);
 }
 

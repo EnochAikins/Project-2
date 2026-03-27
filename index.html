@@ -116,6 +116,26 @@
       </section>
 
       <section class="tab-panel" data-tab-panel="country" id="country-profile-section" tabindex="-1" hidden>
+        <section class="panel detail-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Country story</p>
+              <h2 id="detail-title">Select a country</h2>
+            </div>
+            <p class="panel-note" id="detail-note">The profile and line chart update when you click a country on the map.</p>
+          </div>
+          <div id="country-profile" class="country-profile"></div>
+          <div id="chart-controls" class="chart-controls" hidden>
+            <label class="chart-toggle">
+              <input id="rolling-average-toggle" type="checkbox" />
+              <span>Show 5-year rolling average</span>
+            </label>
+          </div>
+          <div id="country-chart" class="plot detail-plot"></div>
+          <div id="chart-change-summary" class="chart-change-summary"></div>
+          <div id="country-summary" class="country-summary"></div>
+        </section>
+
         <section class="profile-dashboard panel">
           <div class="panel-heading compact">
             <div>
@@ -149,49 +169,25 @@
             </div>
           </div>
 
-          <div class="country-profile-grid">
-            <article class="country-profile-panel afro-sidebar-panel">
-              <div class="country-profile-header">
-                <div>
-                  <p class="panel-kicker">Selected country</p>
-                  <h3 id="latest-profile-title">Country profile</h3>
-                </div>
-                <p id="latest-profile-note" class="panel-note">Latest non-missing score for each indicator.</p>
+          <article class="country-profile-panel country-profile-snapshot-panel">
+            <div class="country-profile-header">
+              <div>
+                <p class="panel-kicker">Selected country</p>
+                <h3 id="latest-profile-title">Country profile</h3>
               </div>
+              <p id="latest-profile-note" class="panel-note">Latest non-missing score for each indicator.</p>
+            </div>
+            <div class="country-profile-snapshot-grid">
               <div id="latest-profile-chart" class="plot latest-profile-plot"></div>
-            </article>
-
-            <article class="country-profile-panel afro-main-panel">
-              <div class="country-profile-header">
-                <div>
-                  <p class="panel-kicker">Indicator cards</p>
+              <div class="country-profile-summary-panel">
+                <div class="country-profile-summary-head">
+                  <p class="panel-kicker">Indicator summary</p>
                   <h3>Latest score table</h3>
                 </div>
-                <p class="panel-note">Each card shows the latest reported value and the year it comes from.</p>
+                <div id="latest-profile-cards" class="latest-profile-cards"></div>
               </div>
-              <div id="latest-profile-cards" class="latest-profile-cards"></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel detail-panel">
-          <div class="panel-heading compact">
-            <div>
-              <p class="panel-kicker">Country story</p>
-              <h2 id="detail-title">Select a country</h2>
             </div>
-            <p class="panel-note" id="detail-note">The profile and line chart update when you click a country on the map.</p>
-          </div>
-          <div id="country-profile" class="country-profile"></div>
-          <div id="chart-controls" class="chart-controls" hidden>
-            <label class="chart-toggle">
-              <input id="rolling-average-toggle" type="checkbox" />
-              <span>Show 5-year rolling average</span>
-            </label>
-          </div>
-          <div id="country-chart" class="plot detail-plot"></div>
-          <div id="chart-change-summary" class="chart-change-summary"></div>
-          <div id="country-summary" class="country-summary"></div>
+          </article>
         </section>
       </section>
 
