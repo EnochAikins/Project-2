@@ -1404,7 +1404,7 @@ function renderCountryProfileCard(country, profile) {
           <h3>${country}</h3>
           <span class="profile-region">${region}</span>
         </div>
-        <details class="profile-secondary">
+        <details class="profile-secondary" open>
           <summary>Political and historical details</summary>
           <div class="profile-meta">
             <article>
