@@ -1,16 +1,29 @@
 :root {
-  --bg: #f4e2b8;
-  --bg-accent: #d6a349;
-  --panel: rgba(255, 247, 231, 0.82);
-  --panel-strong: rgba(252, 239, 214, 0.95);
-  --text: #1f2f22;
-  --muted: #5e5a3f;
-  --line: rgba(61, 75, 40, 0.14);
-  --accent: #c7562a;
-  --accent-dark: #7f2f14;
-  --accent-soft: rgba(199, 86, 42, 0.14);
-  --sea: #d8c77c;
-  --shadow: 0 22px 50px rgba(71, 44, 16, 0.14);
+  --bg: #223329;
+  --bg-deep: #17231d;
+  --panel: rgba(244, 235, 219, 0.92);
+  --panel-strong: rgba(249, 243, 231, 0.97);
+  --card: rgba(255, 250, 242, 0.98);
+  --card-soft: rgba(252, 245, 234, 0.94);
+  --text: #1b2d25;
+  --text-strong: #13211c;
+  --muted: #556258;
+  --line: rgba(31, 46, 38, 0.08);
+  --line-strong: rgba(107, 55, 29, 0.34);
+  --accent: #c95d31;
+  --accent-dark: #8d3b1a;
+  --accent-soft: rgba(201, 93, 49, 0.16);
+  --olive: #7a8d58;
+  --olive-dark: #5f7144;
+  --sage: #8fa77a;
+  --gold: #cfab62;
+  --rust: #a04b2b;
+  --no-data: #b7b2a5;
+  --shadow: 0 24px 56px rgba(10, 17, 13, 0.2);
+  --shadow-soft: 0 14px 30px rgba(19, 33, 28, 0.1);
+  --explorer-tint: linear-gradient(180deg, rgba(207, 171, 98, 0.08), rgba(255, 255, 255, 0));
+  --profile-tint: linear-gradient(180deg, rgba(143, 167, 122, 0.08), rgba(255, 255, 255, 0));
+  --citizen-tint: linear-gradient(180deg, rgba(201, 93, 49, 0.08), rgba(255, 255, 255, 0));
 }
 
 * {
@@ -23,10 +36,10 @@ body {
   font-family: "Source Sans 3", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 12% 14%, rgba(199, 86, 42, 0.28), transparent 28%),
-    radial-gradient(circle at 88% 16%, rgba(42, 92, 54, 0.22), transparent 24%),
-    radial-gradient(circle at 52% 100%, rgba(211, 138, 39, 0.18), transparent 36%),
-    linear-gradient(180deg, #f8d891 0%, #f0b25a 24%, #d67a3c 48%, #7f8f49 76%, #2f5f3b 100%);
+    radial-gradient(circle at 14% 12%, rgba(201, 93, 49, 0.2), transparent 26%),
+    radial-gradient(circle at 84% 16%, rgba(143, 167, 122, 0.18), transparent 24%),
+    radial-gradient(circle at 52% 100%, rgba(207, 171, 98, 0.14), transparent 36%),
+    linear-gradient(180deg, #314739 0%, #24362c 40%, #17231d 100%);
 }
 
 .page-shell {
@@ -46,8 +59,8 @@ body {
 .tab-button {
   padding: 12px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(30, 42, 39, 0.1);
-  background: linear-gradient(180deg, rgba(255, 247, 231, 0.92), rgba(234, 205, 145, 0.82));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(250, 243, 233, 0.94), rgba(241, 229, 208, 0.9));
   color: var(--text);
   font: inherit;
   font-weight: 700;
@@ -64,9 +77,9 @@ body {
 }
 
 .tab-button.active {
-  background: linear-gradient(180deg, rgba(199, 86, 42, 0.3), rgba(91, 122, 50, 0.16));
-  border-color: rgba(127, 47, 20, 0.82);
-  box-shadow: 0 12px 22px rgba(71, 44, 16, 0.14);
+  background: linear-gradient(180deg, rgba(201, 93, 49, 0.28), rgba(201, 93, 49, 0.18));
+  border-color: var(--accent-dark);
+  box-shadow: 0 12px 22px rgba(93, 43, 22, 0.18);
 }
 
 .tab-panel {
@@ -83,6 +96,19 @@ body {
   background: var(--panel);
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow);
+}
+
+[data-tab-panel="africa"] > .panel,
+[data-tab-panel="africa"] > .controls-panel {
+  background-image: var(--explorer-tint);
+}
+
+[data-tab-panel="country"] > .panel {
+  background-image: var(--profile-tint);
+}
+
+[data-tab-panel="citizen"] > .panel {
+  background-image: var(--citizen-tint);
 }
 
 .hero {
@@ -111,11 +137,38 @@ body {
   margin: 0;
   font-family: "Space Grotesk", sans-serif;
   line-height: 1.02;
+  color: var(--text-strong);
 }
 
 .hero h1 {
   max-width: 13ch;
   font-size: clamp(2.15rem, 3vw, 3.6rem);
+}
+
+.hero-title-lockup {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-map-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  padding: 10px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(251, 245, 232, 0.98), rgba(227, 197, 121, 0.95));
+  border: 1px solid rgba(27, 45, 37, 0.12);
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0;
+}
+
+.hero-map-badge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero-text,
@@ -148,8 +201,9 @@ body {
 .stat-card {
   padding: 16px 18px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(251, 240, 214, 0.98), rgba(224, 188, 108, 0.92));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), var(--card-soft));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
 }
 
 .stat-card strong {
@@ -205,8 +259,9 @@ body {
   min-width: 110px;
   padding: 12px 14px;
   border-radius: 18px;
-  border: 1px solid rgba(30, 42, 39, 0.08);
-  background: linear-gradient(180deg, rgba(252, 242, 219, 0.95), rgba(229, 196, 121, 0.9));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--card), rgba(241, 230, 212, 0.96));
+  box-shadow: var(--shadow-soft);
 }
 
 .year-chip span {
@@ -230,8 +285,8 @@ body {
 .indicator-button {
   padding: 16px;
   border-radius: 20px;
-  border: 1px solid rgba(30, 42, 39, 0.08);
-  background: linear-gradient(180deg, rgba(252, 245, 229, 0.92), rgba(242, 216, 157, 0.84));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--card), var(--card-soft));
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -246,9 +301,9 @@ body {
 }
 
 .indicator-button.active {
-  background: linear-gradient(180deg, rgba(199, 86, 42, 0.34), rgba(91, 122, 50, 0.2));
-  border-color: rgba(127, 47, 20, 0.85);
-  box-shadow: 0 14px 26px rgba(71, 44, 16, 0.16);
+  background: linear-gradient(180deg, rgba(201, 93, 49, 0.2), rgba(201, 93, 49, 0.1));
+  border-color: var(--accent-dark);
+  box-shadow: 0 14px 26px rgba(93, 43, 22, 0.16);
 }
 
 .indicator-button:focus-visible {
@@ -269,8 +324,8 @@ body {
   width: 42px;
   height: 34px;
   border-radius: 12px;
-  background: rgba(255, 247, 231, 0.62);
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: rgba(250, 244, 234, 0.92);
+  border: 1px solid var(--line);
   overflow: hidden;
 }
 
@@ -301,8 +356,8 @@ body {
   margin-top: 14px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 247, 231, 0.9), rgba(235, 208, 147, 0.8));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(241, 232, 217, 0.96));
+  border: 1px solid var(--line);
 }
 
 .indicator-meta-grid {
@@ -332,8 +387,8 @@ body {
   margin-top: 12px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 241, 217, 0.96), rgba(234, 195, 123, 0.88));
-  border: 1px solid rgba(127, 47, 20, 0.22);
+  background: linear-gradient(180deg, var(--card), rgba(241, 232, 217, 0.96));
+  border: 1px solid var(--line-strong);
 }
 
 .indicator-empty-state p {
@@ -343,10 +398,11 @@ body {
 
 .empty-state-button {
   padding: 10px 14px;
-  border: 1px solid rgba(127, 47, 20, 0.28);
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: rgba(255, 247, 231, 0.92);
+  background: linear-gradient(180deg, rgba(201, 93, 49, 0.96), rgba(181, 78, 37, 0.96));
   color: var(--accent-dark);
+  color: #fff;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -364,7 +420,7 @@ body {
   border: 0;
   border-radius: 999px;
   font-weight: 700;
-  background: linear-gradient(135deg, #c7562a 0%, #e0a42e 52%, #5b7a32 100%);
+  background: linear-gradient(135deg, #c95d31 0%, #b64e25 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -401,6 +457,14 @@ body {
 .insight-card {
   padding: 20px;
   border-radius: 24px;
+  background: linear-gradient(180deg, var(--card), var(--card-soft));
+  box-shadow: var(--shadow-soft);
+}
+
+.insight-card strong,
+.year-chip strong,
+.stat-card strong {
+  color: var(--text-strong);
 }
 
 .insight-card strong {
@@ -443,8 +507,8 @@ body {
   gap: 8px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(255, 247, 231, 0.75);
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: rgba(252, 246, 237, 0.88);
+  border: 1px solid var(--line);
   color: var(--muted);
   font-weight: 600;
 }
@@ -463,7 +527,7 @@ body {
 .chart-change-card {
   padding: 12px 14px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.95), rgba(233, 206, 143, 0.88));
+  background: linear-gradient(180deg, rgba(255, 248, 231, 0.97), rgba(255, 219, 136, 0.9));
   border: 1px solid rgba(30, 42, 39, 0.08);
 }
 
@@ -502,8 +566,8 @@ body {
   min-width: 240px;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(30, 42, 39, 0.12);
-  background: linear-gradient(180deg, rgba(252, 245, 229, 0.95), rgba(242, 216, 157, 0.88));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--card), rgba(242, 233, 220, 0.95));
   color: var(--text);
   font: inherit;
 }
@@ -533,8 +597,8 @@ body {
 .compare-mode-button {
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(30, 42, 39, 0.1);
-  background: linear-gradient(180deg, rgba(255, 247, 231, 0.94), rgba(234, 205, 145, 0.82));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--card), rgba(242, 233, 220, 0.95));
   color: var(--text);
   font: inherit;
   font-weight: 700;
@@ -551,9 +615,9 @@ body {
 }
 
 .compare-mode-button.active {
-  background: linear-gradient(180deg, rgba(199, 86, 42, 0.26), rgba(91, 122, 50, 0.16));
-  border-color: rgba(127, 47, 20, 0.78);
-  box-shadow: 0 10px 20px rgba(71, 44, 16, 0.12);
+  background: linear-gradient(180deg, rgba(201, 93, 49, 0.22), rgba(201, 93, 49, 0.12));
+  border-color: var(--accent-dark);
+  box-shadow: 0 10px 20px rgba(93, 43, 22, 0.12);
 }
 
 .compare-country-wrap {
@@ -607,8 +671,9 @@ body {
 .country-profile-panel {
   padding: 14px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255, 247, 231, 0.72), rgba(246, 219, 160, 0.55));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), var(--card-soft));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
 }
 
 .afro-links-panel,
@@ -662,13 +727,13 @@ body {
 .latest-profile-mini-card {
   padding: 12px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.97), rgba(231, 204, 141, 0.9));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(245, 237, 225, 0.95));
+  border: 1px solid var(--line);
 }
 
 .latest-profile-mini-card.active {
-  border-color: rgba(127, 47, 20, 0.48);
-  box-shadow: 0 12px 22px rgba(71, 44, 16, 0.1);
+  border-color: var(--accent-dark);
+  box-shadow: 0 12px 22px rgba(93, 43, 22, 0.12);
 }
 
 .latest-profile-mini-card:focus-visible {
@@ -698,7 +763,7 @@ body {
 .latest-profile-mini-title {
   font-size: 1.08rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--text-strong);
   line-height: 1.3;
 }
 
@@ -711,7 +776,7 @@ body {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.12rem;
   font-weight: 700;
-  color: #a12f18;
+  color: var(--text-strong);
 }
 
 .latest-profile-mini-plot {
@@ -735,8 +800,8 @@ body {
 .latest-profile-card {
   padding: 12px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.97), rgba(231, 204, 141, 0.9));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(245, 237, 225, 0.95));
+  border: 1px solid var(--line);
 }
 
 .latest-profile-card-empty {
@@ -747,8 +812,8 @@ body {
 .afro-link-card {
   padding: 14px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.97), rgba(231, 204, 141, 0.9));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(245, 237, 225, 0.95));
+  border: 1px solid var(--line);
   cursor: pointer;
   transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
@@ -761,8 +826,8 @@ body {
 }
 
 .afro-link-card.active {
-  background: linear-gradient(180deg, rgba(199, 86, 42, 0.24), rgba(91, 122, 50, 0.15));
-  border-color: rgba(199, 86, 42, 0.45);
+  background: linear-gradient(180deg, rgba(201, 93, 49, 0.2), rgba(201, 93, 49, 0.1));
+  border-color: var(--accent-dark);
 }
 
 .afro-link-card h4 {
@@ -831,7 +896,7 @@ body {
 .indicator-survey-block {
   margin-top: 10px;
   padding-top: 10px;
-  border-top: 1px solid rgba(30, 42, 39, 0.08);
+  border-top: 1px solid var(--line);
 }
 
 .indicator-survey-block p {
@@ -886,8 +951,8 @@ body {
 .afro-legend-group {
   padding: 12px 14px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.95), rgba(233, 206, 143, 0.88));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(242, 233, 220, 0.95));
+  border: 1px solid var(--line);
 }
 
 .afro-legend-title {
@@ -918,7 +983,7 @@ body {
 
 .afro-legend-label {
   font-size: 0.88rem;
-  color: var(--text);
+  color: var(--text-strong);
   line-height: 1.25;
 }
 
@@ -942,8 +1007,8 @@ body {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 247, 231, 0.86);
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: rgba(252, 246, 237, 0.92);
+  border: 1px solid var(--line);
   color: var(--accent-dark);
   font-size: 0.9rem;
   font-weight: 700;
@@ -958,8 +1023,8 @@ body {
 .afro-balance-card {
   padding: 10px 12px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.95), rgba(233, 206, 143, 0.88));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(242, 233, 220, 0.95));
+  border: 1px solid var(--line);
 }
 
 .afro-balance-card p {
@@ -972,7 +1037,7 @@ body {
   display: block;
   margin-top: 4px;
   font-family: "Space Grotesk", sans-serif;
-  color: var(--text);
+  color: var(--text-strong);
 }
 
 .afro-interpretation {
@@ -992,8 +1057,8 @@ body {
 .afro-meta-card {
   padding: 12px 14px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.95), rgba(233, 206, 143, 0.88));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(242, 233, 220, 0.95));
+  border: 1px solid var(--line);
 }
 
 .afro-meta-card p {
@@ -1017,8 +1082,9 @@ body {
   gap: 18px;
   padding: 18px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(250, 239, 211, 0.98), rgba(221, 189, 121, 0.92));
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: linear-gradient(180deg, var(--card), rgba(241, 232, 217, 0.95));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
 }
 
 .profile-flag {
@@ -1026,7 +1092,7 @@ body {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 16px;
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  border: 1px solid var(--line);
   background: #f2ede3;
 }
 
@@ -1051,8 +1117,8 @@ body {
 .profile-region {
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(255, 247, 231, 0.75);
-  border: 1px solid rgba(30, 42, 39, 0.08);
+  background: rgba(255, 251, 241, 0.82);
+  border: 1px solid var(--line);
   color: var(--accent-dark);
   font-size: 0.9rem;
   font-weight: 700;
@@ -1065,7 +1131,7 @@ body {
 }
 
 .profile-secondary {
-  border-top: 1px solid rgba(30, 42, 39, 0.08);
+  border-top: 1px solid var(--line);
   padding-top: 10px;
 }
 
@@ -1088,8 +1154,8 @@ body {
 .profile-meta article {
   padding: 10px 12px;
   border-radius: 16px;
-  background: rgba(255, 247, 231, 0.6);
-  border: 1px solid rgba(30, 42, 39, 0.06);
+  background: rgba(252, 246, 237, 0.92);
+  border: 1px solid var(--line);
 }
 
 .profile-meta p,
@@ -1129,7 +1195,7 @@ body {
 .country-summary article {
   padding: 14px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 245, 224, 0.95), rgba(233, 206, 143, 0.9));
+  background: linear-gradient(180deg, rgba(255, 248, 231, 0.97), rgba(255, 219, 136, 0.92));
   border: 1px solid rgba(30, 42, 39, 0.08);
 }
 
@@ -1172,6 +1238,10 @@ body {
     grid-template-columns: 1.35fr 1fr;
   }
 
+  .hero-title-lockup {
+    align-items: flex-start;
+  }
+
   .controls-header {
     grid-template-columns: 1fr;
   }
@@ -1195,6 +1265,16 @@ body {
   .controls-panel,
   .panel {
     padding: 18px;
+    border-radius: 22px;
+  }
+
+  .hero-title-lockup {
+    gap: 12px;
+  }
+
+  .hero-map-badge {
+    width: 88px;
+    height: 88px;
     border-radius: 22px;
   }
 

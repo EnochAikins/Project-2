@@ -338,6 +338,34 @@ const chartConfig = {
   displayModeBar: false,
 };
 
+const themeColors = {
+  terracotta: "#c95d31",
+  terracottaDark: "#8d3b1a",
+  accentDark: "#8d3b1a",
+  olive: "#7a8d58",
+  oliveDark: "#5f7144",
+  sage: "#8fa77a",
+  rust: "#a04b2b",
+  rustSoft: "#c86b40",
+  gold: "#cfab62",
+  goldSoft: "#e3c78e",
+  noData: "#b7b2a5",
+  textStrong: "#13211c",
+  textMuted: "#556258",
+  panelPlot: "rgba(250,244,236,0.7)",
+  panelPlotSoft: "rgba(250,244,236,0.5)",
+  grid: "rgba(27,45,37,0.1)",
+  borderSoft: "rgba(27,45,37,0.12)",
+  mapSea: "#d8e1d7",
+  mapLand: "#f1e6d8",
+  mapRamp: [
+    [0, "#f3e0bf"],
+    [0.35, "#ddb67a"],
+    [0.68, "#cf8453"],
+    [1, "#a54a28"],
+  ],
+};
+
 const afrobarometerData = window.AFROBAROMETER_DATA || {};
 
 const afrobarometerIndicatorMap = {
@@ -462,64 +490,64 @@ const surveyYearLabel = "Afrobarometer Round 10 (2024/2025)";
 
 const responseScaleByMetric = {
   corruption: [
-    { label: "Increased a lot", side: "negative", color: "#8f3b18" },
-    { label: "Increased somewhat", side: "negative", color: "#c45c26" },
-    { label: "Stayed the same", side: "neutral", color: "#d6b36e" },
-    { label: "Decreased somewhat", side: "positive", color: "#7b9441" },
-    { label: "Decreased a lot", side: "positive", color: "#416a39" },
+    { label: "Increased a lot", side: "negative", color: themeColors.rust },
+    { label: "Increased somewhat", side: "negative", color: themeColors.rustSoft },
+    { label: "Stayed the same", side: "neutral", color: themeColors.gold },
+    { label: "Decreased somewhat", side: "positive", color: themeColors.sage },
+    { label: "Decreased a lot", side: "positive", color: themeColors.oliveDark },
   ],
   extent_democracy: [
-    { label: "Not a democracy", side: "negative", color: "#8f3b18" },
-    { label: "A democracy; with major problems", side: "negative", color: "#c45c26" },
-    { label: "A democracy; but with minor problems", side: "positive", color: "#7b9441" },
-    { label: "A full democracy", side: "positive", color: "#416a39" },
+    { label: "Not a democracy", side: "negative", color: themeColors.rust },
+    { label: "A democracy; with major problems", side: "negative", color: themeColors.rustSoft },
+    { label: "A democracy; but with minor problems", side: "positive", color: themeColors.sage },
+    { label: "A full democracy", side: "positive", color: themeColors.oliveDark },
   ],
   satisfaction_democracy: [
-    { label: "The country is not a democracy", side: "negative", color: "#8f3b18" },
-    { label: "Not at all satisfied", side: "negative", color: "#a84a20" },
-    { label: "Not very satisfied", side: "negative", color: "#c45c26" },
-    { label: "Fairly satisfied", side: "positive", color: "#7b9441" },
-    { label: "Very satisfied", side: "positive", color: "#416a39" },
+    { label: "The country is not a democracy", side: "negative", color: themeColors.rust },
+    { label: "Not at all satisfied", side: "negative", color: themeColors.rust },
+    { label: "Not very satisfied", side: "negative", color: themeColors.rustSoft },
+    { label: "Fairly satisfied", side: "positive", color: themeColors.sage },
+    { label: "Very satisfied", side: "positive", color: themeColors.oliveDark },
   ],
   direction_country: [
-    { label: "Going in the wrong direction", side: "negative", color: "#8f3b18" },
-    { label: "Going in the right direction", side: "positive", color: "#416a39" },
+    { label: "Going in the wrong direction", side: "negative", color: themeColors.rust },
+    { label: "Going in the right direction", side: "positive", color: themeColors.oliveDark },
   ],
   conflict_handling: [
-    { label: "Very badly", side: "negative", color: "#8f3b18" },
-    { label: "Fairly badly", side: "negative", color: "#c45c26" },
-    { label: "Fairly well", side: "positive", color: "#7b9441" },
-    { label: "Very well", side: "positive", color: "#416a39" },
+    { label: "Very badly", side: "negative", color: themeColors.rust },
+    { label: "Fairly badly", side: "negative", color: themeColors.rustSoft },
+    { label: "Fairly well", side: "positive", color: themeColors.sage },
+    { label: "Very well", side: "positive", color: themeColors.oliveDark },
   ],
   trust_president: [
-    { label: "Not at all", side: "negative", color: "#8f3b18" },
-    { label: "Just a little", side: "negative", color: "#c45c26" },
-    { label: "Somewhat", side: "positive", color: "#7b9441" },
-    { label: "A lot", side: "positive", color: "#416a39" },
+    { label: "Not at all", side: "negative", color: themeColors.rust },
+    { label: "Just a little", side: "negative", color: themeColors.rustSoft },
+    { label: "Somewhat", side: "positive", color: themeColors.sage },
+    { label: "A lot", side: "positive", color: themeColors.oliveDark },
   ],
   trust_police: [
-    { label: "Not at all", side: "negative", color: "#8f3b18" },
-    { label: "Just a little", side: "negative", color: "#c45c26" },
-    { label: "Somewhat", side: "positive", color: "#7b9441" },
-    { label: "A lot", side: "positive", color: "#416a39" },
+    { label: "Not at all", side: "negative", color: themeColors.rust },
+    { label: "Just a little", side: "negative", color: themeColors.rustSoft },
+    { label: "Somewhat", side: "positive", color: themeColors.sage },
+    { label: "A lot", side: "positive", color: themeColors.oliveDark },
   ],
   trust_parliament: [
-    { label: "Not at all", side: "negative", color: "#8f3b18" },
-    { label: "Just a little", side: "negative", color: "#c45c26" },
-    { label: "Somewhat", side: "positive", color: "#7b9441" },
-    { label: "A lot", side: "positive", color: "#416a39" },
+    { label: "Not at all", side: "negative", color: themeColors.rust },
+    { label: "Just a little", side: "negative", color: themeColors.rustSoft },
+    { label: "Somewhat", side: "positive", color: themeColors.sage },
+    { label: "A lot", side: "positive", color: themeColors.oliveDark },
   ],
   trust_army: [
-    { label: "Not at all", side: "negative", color: "#8f3b18" },
-    { label: "Just a little", side: "negative", color: "#c45c26" },
-    { label: "Somewhat", side: "positive", color: "#7b9441" },
-    { label: "A lot", side: "positive", color: "#416a39" },
+    { label: "Not at all", side: "negative", color: themeColors.rust },
+    { label: "Just a little", side: "negative", color: themeColors.rustSoft },
+    { label: "Somewhat", side: "positive", color: themeColors.sage },
+    { label: "A lot", side: "positive", color: themeColors.oliveDark },
   ],
   trust_courts: [
-    { label: "Not at all", side: "negative", color: "#8f3b18" },
-    { label: "Just a little", side: "negative", color: "#c45c26" },
-    { label: "Somewhat", side: "positive", color: "#7b9441" },
-    { label: "A lot", side: "positive", color: "#416a39" },
+    { label: "Not at all", side: "negative", color: themeColors.rust },
+    { label: "Just a little", side: "negative", color: themeColors.rustSoft },
+    { label: "Somewhat", side: "positive", color: themeColors.sage },
+    { label: "A lot", side: "positive", color: themeColors.oliveDark },
   ],
 };
 
@@ -844,6 +872,13 @@ function normalizeAfroIndicatorKey(key) {
   return key;
 }
 
+function formatAfroLinkHeading(description) {
+  const cleaned = (description || "")
+    .replace(/^Afrobarometer\s+/i, "")
+    .replace(/\.$/, "");
+  return cleaned ? `${cleaned.charAt(0).toUpperCase()}${cleaned.slice(1)}` : "";
+}
+
 function getLatestIndicatorProfile(country) {
   const rows = rowsByCountry[country] || [];
 
@@ -942,6 +977,7 @@ function getAfroLinkedIndicators(country) {
       label: card.label,
       linkTitle: baseLink.title,
       linkDescription: baseLink.description,
+      cardHeading: formatAfroLinkHeading(baseLink.description),
       linkType: baseLink.type,
       metrics,
       covered,
@@ -1289,7 +1325,7 @@ function renderMap() {
             xref: "paper",
             yref: "paper",
             showarrow: false,
-            font: { family: "Space Grotesk, sans-serif", size: 22, color: "#7f2f14" },
+            font: { family: "Space Grotesk, sans-serif", size: 22, color: themeColors.accentDark || themeColors.terracottaDark },
           },
         ],
       },
@@ -1301,7 +1337,7 @@ function renderMap() {
   const min = values.length ? Math.min(...values) : 0;
   const rawMax = values.length ? Math.max(...values) : 1;
   const max = rawMax === min ? min + 1 : rawMax;
-  const noDataColor = "#d8d1c0";
+  const noDataColor = themeColors.noData;
 
   const missingTrace = {
     type: "choropleth",
@@ -1339,12 +1375,7 @@ function renderMap() {
       averageValue,
       getLatestAvailableRow(row.country, indicator.key)?.Year ?? "N/A",
     ]),
-    colorscale: [
-      [0, "#f0d7b5"],
-      [0.35, "#d49b53"],
-      [0.65, "#c15d2a"],
-      [1, "#6c2d13"],
-    ],
+    colorscale: themeColors.mapRamp,
     marker: {
       line: {
         color: "rgba(255,255,255,0.8)",
@@ -1374,7 +1405,7 @@ function renderMap() {
       size: 12,
       color: noDataColor,
       symbol: "square",
-      line: { color: "rgba(30,42,39,0.2)", width: 1 },
+      line: { color: themeColors.borderSoft, width: 1 },
     },
     hoverinfo: "skip",
   };
@@ -1392,22 +1423,22 @@ function renderMap() {
       orientation: "h",
       x: 0,
       y: 1.02,
-      bgcolor: "rgba(255,247,231,0.86)",
-      bordercolor: "rgba(30,42,39,0.08)",
+      bgcolor: "rgba(252,246,237,0.9)",
+      bordercolor: themeColors.borderSoft,
       borderwidth: 1,
     },
     geo: {
       scope: "africa",
       projection: { type: "natural earth" },
       bgcolor: "rgba(0,0,0,0)",
-      lakecolor: "#d7e7eb",
+      lakecolor: themeColors.mapSea,
       showlakes: true,
       showframe: false,
       showcountries: true,
       countrycolor: "rgba(255,255,255,0.85)",
       showocean: true,
-      oceancolor: "#d7e7eb",
-      landcolor: "#f6eee1",
+      oceancolor: themeColors.mapSea,
+      landcolor: themeColors.mapLand,
     },
   };
 
@@ -1473,13 +1504,13 @@ function renderCountryDetail() {
     y: selectedTraceValues,
     name: baseCountry,
     line: {
-      color: "#c15d2a",
+      color: themeColors.terracotta,
       width: 3,
       shape: "spline",
     },
     marker: {
       size: 7,
-      color: "#6c2d13",
+      color: themeColors.terracotta,
     },
     connectgaps: false,
     hovertemplate: `${baseCountry}<br>Year %{x}<br>${indicator.label}: %{y:.2f}<extra></extra>`,
@@ -1492,7 +1523,7 @@ function renderCountryDetail() {
     y: comparisonTraceValues,
     name: compareLabel,
     line: {
-      color: "#48653d",
+      color: themeColors.olive,
       width: 3,
       dash: "dot",
       shape: "spline",
@@ -1510,7 +1541,7 @@ function renderCountryDetail() {
           y: [state.showRollingAverage && showRolling ? currentRow.rolling : currentRow.value],
           marker: {
             size: 16,
-            color: "#1e2a27",
+            color: themeColors.terracotta,
             line: { width: 3, color: "#fff5e0" },
             symbol: "diamond",
           },
@@ -1529,7 +1560,7 @@ function renderCountryDetail() {
           textposition: "top center",
           marker: {
             size: 10,
-            color: "#5b7a32",
+            color: themeColors.oliveDark,
             line: { width: 2, color: "#fff5e0" },
           },
           hovertemplate: "%{text}<extra></extra>",
@@ -1547,7 +1578,7 @@ function renderCountryDetail() {
           textposition: "bottom center",
           marker: {
             size: 10,
-            color: "#9f4f1a",
+            color: themeColors.rust,
             line: { width: 2, color: "#fff5e0" },
           },
           hovertemplate: "%{text}<extra></extra>",
@@ -1556,25 +1587,25 @@ function renderCountryDetail() {
 
   const layout = {
     paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(255,250,241,0.75)",
+    plot_bgcolor: themeColors.panelPlot,
     margin: { t: 10, r: 12, b: 42, l: 48 },
     xaxis: {
       title: "Year",
       tickmode: "linear",
       dtick: 5,
-      gridcolor: "rgba(30,42,39,0.08)",
+      gridcolor: themeColors.grid,
       zeroline: false,
     },
     yaxis: {
       title: `${indicator.label} score`,
-      gridcolor: "rgba(30,42,39,0.08)",
+      gridcolor: themeColors.grid,
       zeroline: false,
     },
     legend: {
       orientation: "h",
       y: 1.08,
       x: 0,
-      bgcolor: "rgba(255,247,231,0.78)",
+      bgcolor: "rgba(252,246,237,0.88)",
     },
   };
 
@@ -1781,13 +1812,13 @@ function renderLatestProfileChart() {
       y: new Array((row.distribution || []).length).fill("Africa distribution"),
       name: "Africa distribution",
       boxpoints: false,
-      fillcolor: "rgba(212, 155, 83, 0.28)",
+      fillcolor: "rgba(207, 171, 98, 0.24)",
       line: {
-        color: "rgba(127,47,20,0.5)",
+        color: "rgba(95, 113, 68, 0.5)",
         width: 1.5,
       },
       marker: {
-        color: "rgba(212, 155, 83, 0.6)",
+        color: "rgba(207, 171, 98, 0.55)",
       },
       hoverinfo: "skip",
     };
@@ -1800,7 +1831,7 @@ function renderLatestProfileChart() {
       name: country,
       marker: {
         size: 12,
-        color: "#c7562a",
+        color: themeColors.terracotta,
         line: { color: "#fff5e0", width: 2 },
         symbol: "diamond",
       },
@@ -1815,7 +1846,7 @@ function renderLatestProfileChart() {
       name: compareLabel,
       marker: {
         size: 11,
-        color: "rgba(91, 122, 50, 0.9)",
+        color: themeColors.olive,
         line: { color: "#fff5e0", width: 2 },
         symbol: "circle",
       },
@@ -1824,10 +1855,10 @@ function renderLatestProfileChart() {
 
     const miniLayout = {
       paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(255,250,241,0.32)",
+      plot_bgcolor: themeColors.panelPlotSoft,
       margin: { t: 4, r: 10, b: 24, l: 28 },
       xaxis: {
-        gridcolor: "rgba(30,42,39,0.08)",
+        gridcolor: themeColors.grid,
         zeroline: false,
       },
       yaxis: {
@@ -1905,8 +1936,7 @@ function renderAfroCardGrid() {
           class="afro-link-card${indicator.key === state.selectedAfroIndicator ? " active" : ""}"
           data-afro-indicator="${indicator.key}"
         >
-          <h4>${indicator.label}</h4>
-          <p>${indicator.linkDescription}</p>
+          <h4>${indicator.cardHeading}</h4>
           <p class="afro-link-status">${indicator.covered ? "Afrobarometer covered" : "Not covered by Afrobarometer"}</p>
         </button>
       `,
@@ -1932,7 +1962,7 @@ function renderAfroNotCovered(title) {
     [],
     {
       paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(255,250,241,0.55)",
+      plot_bgcolor: themeColors.panelPlotSoft,
       margin: { t: 10, r: 10, b: 10, l: 10 },
       xaxis: { visible: false },
       yaxis: { visible: false },
@@ -1944,7 +1974,7 @@ function renderAfroNotCovered(title) {
           xref: "paper",
           yref: "paper",
           showarrow: false,
-          font: { family: "Space Grotesk, sans-serif", size: 22, color: "#7f2f14" },
+          font: { family: "Space Grotesk, sans-serif", size: 22, color: themeColors.accentDark },
         },
       ],
     },
@@ -2120,7 +2150,7 @@ function buildDivergingAfroChart(metrics) {
         }),
         marker: {
           color: item.color,
-          line: { color: "rgba(30,42,39,0.12)", width: 1 },
+          line: { color: themeColors.borderSoft, width: 1 },
         },
         hovertemplate:
           "<b>%{customdata[0]}</b><br>" +
@@ -2130,13 +2160,13 @@ function buildDivergingAfroChart(metrics) {
     layout: {
       barmode: "relative",
       paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(255,250,241,0.55)",
+      plot_bgcolor: themeColors.panelPlotSoft,
       margin: { t: 10, r: 16, b: 60, l: 190 },
       xaxis: {
         title: "Response distribution (%)",
         tickvals: [-100, -50, 0, 50, 100],
         ticktext: ["100", "50", "0", "50", "100"],
-        gridcolor: "rgba(30,42,39,0.08)",
+        gridcolor: themeColors.grid,
         zeroline: false,
       },
       yaxis: {
