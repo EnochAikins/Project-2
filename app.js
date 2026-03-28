@@ -1149,7 +1149,7 @@ function renderStats() {
 
 function buildCountryProfileQuery(iso3) {
   return `
-SELECT ?country ?countryLabel ?flagImage ?inception ?sovereignSince ?headOfStateLabel ?headOfGovernmentLabel ?nextElection ?nextElectionLabel ?nextElectionDate WHERE {
+SELECT ?country ?countryLabel ?flagImage ?inception ?sovereignSince ?headOfStateLabel ?headOfGovernmentLabel ?headOfStateImage ?headOfGovernmentImage ?nextElection ?nextElectionLabel ?nextElectionDate WHERE {
   ?country wdt:P298 "${iso3}".
   OPTIONAL { ?country wdt:P41 ?flagImage. }
   OPTIONAL { ?country wdt:P571 ?inception. }
@@ -1160,6 +1160,8 @@ SELECT ?country ?countryLabel ?flagImage ?inception ?sovereignSince ?headOfState
   }
   OPTIONAL { ?country wdt:P35 ?headOfState. }
   OPTIONAL { ?country wdt:P6 ?headOfGovernment. }
+  OPTIONAL { ?headOfState wdt:P18 ?headOfStateImage. }
+  OPTIONAL { ?headOfGovernment wdt:P18 ?headOfGovernmentImage. }
   OPTIONAL {
     {
       SELECT ?country ?nextElection ?nextElectionLabel ?nextElectionDate WHERE {
@@ -1205,12 +1207,21 @@ function renderCountryProfileCard(country, profile) {
   const independenceDate = independenceByCountry[country] || "Not available from selected source";
   const leaderName = profile.headOfStateLabel || profile.headOfGovernmentLabel || "Not available";
   const leaderLabel = profile.headOfStateLabel ? "Current head of state" : "Current head of government";
+  const leaderImage = profile.headOfStateImage || profile.headOfGovernmentImage || "";
   const recentElection = recentNationalElectionByCountry[country] || "Not available from selected source";
   const region = regionByCountry[country] || "Region not classified";
   const narrative = buildCountryNarrative(country, state.selectedIndicator);
   const flagMarkup = profile.flagImage
     ? `<img class="profile-flag" src="${profile.flagImage}" alt="Flag of ${country}" loading="lazy" />`
     : `<div class="profile-flag" aria-hidden="true"></div>`;
+  const leaderMarkup = leaderImage
+    ? `
+        <span class="profile-leader">
+          <img class="profile-leader-photo" src="${leaderImage}" alt="${leaderName}" loading="lazy" />
+          <span>${leaderName}</span>
+        </span>
+      `
+    : leaderName;
 
   elements.countryProfile.innerHTML = `
     <article class="profile-card">
@@ -1230,7 +1241,7 @@ function renderCountryProfileCard(country, profile) {
             </article>
             <article>
               <p>${leaderLabel}</p>
-              <strong>${leaderName}</strong>
+              <strong>${leaderMarkup}</strong>
             </article>
             <article>
               <p>Most recent national election</p>
@@ -1290,6 +1301,8 @@ async function loadCountryProfile(country) {
       flagImage: binding.flagImage?.value || "",
       headOfStateLabel: binding.headOfStateLabel?.value || "",
       headOfGovernmentLabel: binding.headOfGovernmentLabel?.value || "",
+      headOfStateImage: binding.headOfStateImage?.value || "",
+      headOfGovernmentImage: binding.headOfGovernmentImage?.value || "",
       countryUrl: binding.country?.value || "https://www.wikidata.org/",
     };
 

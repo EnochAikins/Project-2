@@ -1172,6 +1172,21 @@ body {
   line-height: 1.25;
 }
 
+.profile-leader {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-leader-photo {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
 .profile-card.loading,
 .profile-card.error {
   grid-template-columns: 1fr;
