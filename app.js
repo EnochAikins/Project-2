@@ -256,61 +256,232 @@ const independenceByCountry = {
   Eswatini: "6 September 1968",
 };
 
+const populationByCountry = {
+  Algeria: "48,028,300",
+  Angola: "40,215,200",
+  Benin: "15,170,400",
+  Botswana: "2,603,390",
+  "Burkina Faso": "24,601,700",
+  Burundi: "14,729,200",
+  "Cabo Verde": "529,630",
+  Cameroon: "30,640,800",
+  "Central African Republic": "5,698,980",
+  Chad: "21,560,400",
+  Comoros: "899,010",
+  "Republic of the Congo": "6,637,780",
+  "Democratic Republic of the Congo": "116,452,000",
+  "Cote d'Ivoire": "33,494,300",
+  Djibouti: "1,199,460",
+  Egypt: "120,101,000",
+  "Equatorial Guinea": "1,984,470",
+  Eritrea: "3,682,670",
+  Eswatini: "1,269,860",
+  Ethiopia: "138,902,000",
+  Gabon: "2,647,400",
+  Gambia: "2,884,080",
+  Ghana: "35,697,600",
+  Guinea: "15,442,000",
+  "Guinea-Bissau": "2,297,810",
+  Kenya: "58,636,400",
+  Lesotho: "2,389,340",
+  Liberia: "5,853,950",
+  Libya: "7,539,850",
+  Madagascar: "33,522,100",
+  Malawi: "22,785,500",
+  Mali: "25,932,300",
+  Mauritania: "5,461,320",
+  Mauritius: "1,265,060",
+  Morocco: "38,762,400",
+  Mozambique: "36,639,900",
+  Namibia: "3,153,250",
+  Niger: "28,814,900",
+  Nigeria: "242,432,000",
+  Rwanda: "14,889,700",
+  "Sao Tome and Principe": "244,994",
+  Senegal: "19,366,500",
+  Seychelles: "134,959",
+  "Sierra Leone": "8,996,740",
+  Somalia: "20,305,900",
+  "South Africa": "65,453,100",
+  "South Sudan": "12,436,000",
+  Sudan: "53,282,700",
+  Tanzania: "72,563,800",
+  Togo: "9,930,920",
+  Tunisia: "12,415,100",
+  Uganda: "52,761,500",
+  Zambia: "22,521,900",
+  Zimbabwe: "17,273,600",
+};
+
+const capitalByCountry = {
+  Algeria: "Algiers",
+  Angola: "Luanda",
+  Benin: "Porto-Novo",
+  Botswana: "Gaborone",
+  "Burkina Faso": "Ouagadougou",
+  Burundi: "Bujumbura",
+  "Cabo Verde": "Praia",
+  Cameroon: "Yaounde",
+  "Central African Republic": "Bangui",
+  Chad: "N'Djamena",
+  Comoros: "Moroni",
+  "Republic of the Congo": "Brazzaville",
+  "Democratic Republic of the Congo": "Not available from Whereig source",
+  "Cote d'Ivoire": "Yamoussoukro",
+  Djibouti: "Djibouti",
+  Egypt: "Cairo",
+  "Equatorial Guinea": "Malabo",
+  Eritrea: "Asmara",
+  Eswatini: "Mbabane and Lobamba",
+  Ethiopia: "Addis Ababa",
+  Gabon: "Libreville",
+  Gambia: "Banjul",
+  Ghana: "Accra",
+  Guinea: "Conakry",
+  "Guinea-Bissau": "Bissau",
+  Kenya: "Nairobi",
+  Lesotho: "Maseru",
+  Liberia: "Monrovia",
+  Libya: "Tripoli",
+  Madagascar: "Antananarivo",
+  Malawi: "Lilongwe",
+  Mali: "Bamako",
+  Mauritania: "Nouakchott",
+  Mauritius: "Port Louis",
+  Morocco: "Rabat",
+  Mozambique: "Maputo",
+  Namibia: "Windhoek",
+  Niger: "Niamey",
+  Nigeria: "Abuja",
+  Rwanda: "Kigali",
+  "Sao Tome and Principe": "Sao Tome",
+  Senegal: "Dakar",
+  Seychelles: "Victoria",
+  "Sierra Leone": "Not available from Whereig source",
+  Somalia: "Mogadishu",
+  "South Africa": "Cape Town (Legislative), Pretoria (Administrative), and Bloemfontein (Judicial)",
+  "South Sudan": "Not available from Whereig source",
+  Sudan: "Not available from Whereig source",
+  Tanzania: "Dar es Salaam",
+  Togo: "Lome",
+  Tunisia: "Tunis",
+  Uganda: "Kampala",
+  Zambia: "Lusaka",
+  Zimbabwe: "Harare",
+};
+
+const incomeGroupByCountry = {
+  Algeria: "Upper-middle income",
+  Angola: "Lower-middle income",
+  Benin: "Lower-middle income",
+  Botswana: "Upper-middle income",
+  "Burkina Faso": "Low income",
+  Burundi: "Low income",
+  "Cabo Verde": "Upper-middle income",
+  Cameroon: "Lower-middle income",
+  "Central African Republic": "Low income",
+  Chad: "Low income",
+  Comoros: "Lower-middle income",
+  "Republic of the Congo": "Lower-middle income",
+  "Democratic Republic of the Congo": "Low income",
+  "Cote d'Ivoire": "Lower-middle income",
+  Djibouti: "Lower-middle income",
+  Egypt: "Lower-middle income",
+  "Equatorial Guinea": "Upper-middle income",
+  Eritrea: "Low income",
+  Eswatini: "Lower-middle income",
+  Ethiopia: "Temporarily unclassified for FY2026",
+  Gabon: "Upper-middle income",
+  Gambia: "Low income",
+  Ghana: "Lower-middle income",
+  Guinea: "Lower-middle income",
+  "Guinea-Bissau": "Low income",
+  Kenya: "Lower-middle income",
+  Lesotho: "Lower-middle income",
+  Liberia: "Low income",
+  Libya: "Upper-middle income",
+  Madagascar: "Low income",
+  Malawi: "Low income",
+  Mali: "Low income",
+  Mauritania: "Lower-middle income",
+  Mauritius: "Upper-middle income",
+  Morocco: "Lower-middle income",
+  Mozambique: "Low income",
+  Namibia: "Lower-middle income",
+  Niger: "Low income",
+  Nigeria: "Lower-middle income",
+  Rwanda: "Low income",
+  "Sao Tome and Principe": "Lower-middle income",
+  Senegal: "Lower-middle income",
+  Seychelles: "High income",
+  "Sierra Leone": "Low income",
+  Somalia: "Low income",
+  "South Africa": "Upper-middle income",
+  "South Sudan": "Low income",
+  Sudan: "Low income",
+  Tanzania: "Lower-middle income",
+  Togo: "Low income",
+  Tunisia: "Lower-middle income",
+  Uganda: "Low income",
+  Zambia: "Lower-middle income",
+  Zimbabwe: "Lower-middle income",
+};
+
 const recentNationalElectionByCountry = {
-  Algeria: "People's National Assembly: 12 June 2021",
-  Angola: "General election: 24 August 2022",
-  Benin: "National Assembly: 8 January 2023",
-  Botswana: "National Assembly: 23 October 2019",
-  "Burkina Faso": "National Assembly: 22 November 2020",
-  Burundi: "National Assembly: 7 June 2020",
-  Cameroon: "National Assembly: 9 February 2020; Senate: 13 March 2023",
-  "Cabo Verde": "National Assembly: 18 April 2021",
-  "Central African Republic": "National election: 27 December 2020; runoff 14 March 2021",
-  Chad: "National Assembly: 10 April 2016; runoff 9 May 2016",
-  Comoros: "Union Assembly: 19 January 2020; second round 23 February 2020",
-  "Republic of the Congo": "National Assembly: 10 July 2022",
-  "Democratic Republic of the Congo": "National Assembly: 30 December 2018",
-  "Cote d'Ivoire": "National Assembly: 6 March 2021",
-  Djibouti: "National Assembly: 24 February 2023",
-  Egypt: "People's Assembly: 7-8 November 2020",
-  "Equatorial Guinea": "House of Representatives and Senate: 20 November 2022",
-  Eritrea: "Transitional National Assembly formed: May 1997",
-  Ethiopia: "House of People's Representatives: 21 June 2021",
-  Gabon: "National Assembly: 6 October 2018; second round 27 October 2018",
-  Gambia: "National Assembly: 9 April 2022",
-  Ghana: "National elections: 7 December 2020",
-  Guinea: "National Assembly: 22 March 2020",
-  "Guinea-Bissau": "People's National Assembly: 10 March 2019",
-  Kenya: "National Assembly and Senate: 9 August 2022",
-  Lesotho: "National Assembly: 7 October 2022",
-  Liberia: "House of Representatives and Senate: 10 October 2017",
-  Libya: "Parliamentary election: 20 February 2014",
-  Madagascar: "National Assembly: 27 May 2019; Senate: 11 December 2020",
-  Malawi: "National Assembly: 21 May 2019",
-  Mali: "National Assembly: 29 March 2020; second round 19 April 2020",
-  Mauritania: "National Assembly: 1 September 2018; second round 15 September 2018",
-  Mauritius: "National Assembly: 7 November 2019",
-  Morocco: "House of Representatives: 8 September 2021",
-  Mozambique: "General election: 15 October 2019",
-  Namibia: "National Assembly: 27 November 2019",
-  Niger: "National elections: 27 December 2020; runoff 21 February 2021",
-  Nigeria: "National Assembly and Senate: 25 February 2023",
-  Rwanda: "Chamber of Deputies: 3 September 2018; Senate: 16-18 September 2019",
-  "Sao Tome and Principe": "National Assembly: 25 September 2022",
-  Senegal: "National Assembly: 31 July 2022",
-  Seychelles: "National Assembly: 22-24 October 2020",
-  "Sierra Leone": "National elections: 7 March 2018; runoff 31 March 2018",
-  Somalia: "House of the People: 1 November 2021 to 25 February 2022",
-  "South Africa": "National Assembly: 8 May 2019",
-  "South Sudan": "National election: 9 July 2010",
-  Sudan: "National Assembly and Council of States: 2 April 2015",
-  Tanzania: "National elections: 28 October 2020",
-  Togo: "National Assembly: 20 December 2018",
-  Tunisia: "Assembly of Representatives: 17 December 2022; runoff 29 January 2023",
-  Uganda: "National elections: 14 January 2021; runoff 10 February 2021",
-  Zambia: "National elections: 12 August 2021",
-  Zimbabwe: "House of Assembly and Senate: 30 July 2018",
-  Eswatini: "House of Assembly: primary 18 August 2018; secondary 21 September 2018",
+  Algeria: "2024 - 2024 Algeria Presidential Election: 7th September, 2024",
+  Angola: "Not available from African Elections",
+  Benin: "Not available from African Elections",
+  Botswana: "Not available from African Elections",
+  "Burkina Faso": "Not available from African Elections",
+  Burundi: "Not available from African Elections",
+  Cameroon: "2025 - Cameroon Presidential Election 2025: 12th October, 2025",
+  "Cabo Verde": "Not available from African Elections",
+  "Central African Republic": "Not available from African Elections",
+  Chad: "Not available from African Elections",
+  Comoros: "2024 - 2024 Comoros Presidential Election: 14th January, 2024",
+  "Republic of the Congo": "Not available from African Elections",
+  "Democratic Republic of the Congo": "2023 - 2023 Democratic Republic of Congo General Election: 20th December, 2023",
+  "Cote d'Ivoire": "2025 - 2025 Cote d'Ivoire Presidential Elections: 25th October, 2025",
+  Djibouti: "Not available from African Elections",
+  Egypt: "2023 - 2023 Egypt Presidential Elections: 1st December, 2023",
+  "Equatorial Guinea": "Not available from African Elections",
+  Eritrea: "Not available from African Elections",
+  Ethiopia: "Not available from African Elections",
+  Gabon: "Not available from African Elections",
+  Gambia: "Not available from African Elections",
+  Ghana: "2024 - 2024 General Elections: 7th December, 2024",
+  Guinea: "Not available from African Elections",
+  "Guinea-Bissau": "Not available from African Elections",
+  Kenya: "Not available from African Elections",
+  Lesotho: "Not available from African Elections",
+  Liberia: "Not available from African Elections",
+  Libya: "Not available from African Elections",
+  Madagascar: "Not available from African Elections",
+  Malawi: "2025 - General Election 2025: 16th September, 2025",
+  Mali: "Not available from African Elections",
+  Mauritania: "Not available from African Elections",
+  Mauritius: "Not available from African Elections",
+  Morocco: "Not available from African Elections",
+  Mozambique: "2024 - 2024 Mozambican Presidential Election: 9th October, 2024",
+  Namibia: "Not available from African Elections",
+  Niger: "Not available from African Elections",
+  Nigeria: "Not available from African Elections",
+  Rwanda: "Not available from African Elections",
+  "Sao Tome and Principe": "Not available from African Elections",
+  Senegal: "2024 - 2024 Senegal Presidential Election: 5th March, 2024",
+  Seychelles: "2025 - Seychelles Presidential Election 2025: 9th October, 2025",
+  "Sierra Leone": "Not available from African Elections",
+  Somalia: "Not available from African Elections",
+  "South Africa": "Not available from African Elections",
+  "South Sudan": "Not available from African Elections",
+  Sudan: "Not available from African Elections",
+  Tanzania: "Not available from African Elections",
+  Togo: "Not available from African Elections",
+  Tunisia: "2024 - 2024 Tunisia Presidential Election: 6th October, 2024",
+  Uganda: "Not available from African Elections",
+  Zambia: "Not available from African Elections",
+  Zimbabwe: "Not available from African Elections",
+  Eswatini: "Not available from African Elections",
 };
 
 const state = {
@@ -1205,12 +1376,14 @@ function renderCountryProfileError(country) {
 
 function renderCountryProfileCard(country, profile) {
   const independenceDate = independenceByCountry[country] || "Not available from selected source";
+  const population = populationByCountry[country] || "Not available from World Population Review";
+  const capital = capitalByCountry[country] || "Not available from Whereig source";
+  const incomeGroup = incomeGroupByCountry[country] || "Not available from World Bank source";
   const leaderName = profile.headOfStateLabel || profile.headOfGovernmentLabel || "Not available";
   const leaderLabel = profile.headOfStateLabel ? "Current head of state" : "Current head of government";
   const leaderImage = profile.headOfStateImage || profile.headOfGovernmentImage || "";
   const recentElection = recentNationalElectionByCountry[country] || "Not available from selected source";
   const region = regionByCountry[country] || "Region not classified";
-  const narrative = buildCountryNarrative(country, state.selectedIndicator);
   const flagMarkup = profile.flagImage
     ? `<img class="profile-flag" src="${profile.flagImage}" alt="Flag of ${country}" loading="lazy" />`
     : `<div class="profile-flag" aria-hidden="true"></div>`;
@@ -1231,10 +1404,21 @@ function renderCountryProfileCard(country, profile) {
           <h3>${country}</h3>
           <span class="profile-region">${region}</span>
         </div>
-        <p class="profile-narrative">${narrative}</p>
         <details class="profile-secondary">
           <summary>Political and historical details</summary>
           <div class="profile-meta">
+            <article>
+              <p>Total population</p>
+              <strong>${population}</strong>
+            </article>
+            <article>
+              <p>Capital city</p>
+              <strong>${capital}</strong>
+            </article>
+            <article>
+              <p>Income group</p>
+              <strong>${incomeGroup}</strong>
+            </article>
             <article>
               <p>Independence date</p>
               <strong>${independenceDate}</strong>
@@ -1249,10 +1433,16 @@ function renderCountryProfileCard(country, profile) {
             </article>
           </div>
           <p class="profile-source">
+            Population from
+            <a href="https://worldpopulationreview.com/country-rankings/countries-in-africa" target="_blank" rel="noreferrer">World Population Review</a>,
+            capitals from
+            <a href="https://www.whereig.com/world-countries-and-capitals/africa.html" target="_blank" rel="noreferrer">Whereig</a>,
+            income groups from
+            <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups" target="_blank" rel="noreferrer">World Bank</a>,
             Independence dates from
             <a href="https://www.penglobalinc.com/independence-here-are-the-list-of-african-countries-and-their-independence-dates" target="_blank" rel="noreferrer">PEN Global</a>,
             election history from
-            <a href="https://www.eisa.org/election-calendar/" target="_blank" rel="noreferrer">EISA</a>,
+            <a href="https://www.africanelections.org/elections/" target="_blank" rel="noreferrer">African Elections</a>,
             and flag/current leadership from
             <a href="${profile.countryUrl}" target="_blank" rel="noreferrer">Wikidata</a>.
           </p>
@@ -1737,6 +1927,7 @@ function renderLatestProfileCards(profileRows) {
       <p>${row.title}</p>
       <strong>${row.value === null ? "No data" : row.value.toFixed(2)}</strong>
       <p class="indicator-year">${row.year ? `Latest year: ${row.year}` : "Latest year: not available"}</p>
+      <p class="indicator-summary">${buildCountryNarrative(state.selectedProfileCountry, row.key)}</p>
       <p class="indicator-summary">${buildIndicatorPerformanceSummary(row)}</p>
       <p class="indicator-trend">${row.trendAnalysis?.summary || "Trend analysis: not available."}</p>
       <p class="indicator-compare">${
